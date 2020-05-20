@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en" style="overflow: hidden;">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" id="viewport"
+        name="viewport">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="keywords" content="气象数据综合平台，天气预报，地图，风，温度，降水，雨，云，压力">
+    <title>新宏气象海洋信息服务平台</title>
+    <link rel="icon" href="img/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="css/ol.css">
+    <link rel="stylesheet" href="./css/time.css">
+    <link rel="stylesheet" href="./css/swiper.css">
+    <link rel="stylesheet" href="./css/leftmain.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/rightpanel.css" /> -->
+    <link rel="stylesheet" href="./css/bottomPanel.css">
+    <link rel="stylesheet" href="./css/taifeng.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/headerTab.css">
+    <link rel="stylesheet" href="./css/rightTopTab.css">
+    <link rel="stylesheet" href="./css/ludishuiwen.css">
+    <link rel="stylesheet" href="./css/haiquyubao.css">
+    <link rel="stylesheet" href="./css/tides.css">
+    <link rel="stylesheet" href="./css/tuLi.css">
+    <link rel="stylesheet" href="./css/rightBottomTab.css">
+    <link rel='stylesheet prefetch' href='css/animate.min.css'>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/airRoutePopup.css" />
+    <style type="text/css">
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        /*闪烁marker样式  */
+        #css_animation {
+            height: 25px;
+            width: 25px;
+            border-radius: 25px;
+            background: rgba(255, 0, 0, 0.9);
+            transform: scale(0);
+            animation: myfirst 2s;
+            animation-iteration-count: infinite;
+            display: none;
+        }
+
+        @keyframes myfirst {
+            to {
+                transform: scale(2);
+                background: rgba(0, 0, 0, 0);
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        // rem适配代码
+        (function (win, lib) {
+            var doc = win.document;
+            var docEl = doc.documentElement;
+            var devicePixelRatio = win.devicePixelRatio;
+            var dpr = 1;
+            var scale = 1;
+
+            function setViewport() {
+                dpr = 1;
+                win.devicePixelRatioValue = dpr;
+                scale = 1 / dpr;
+                var metaEl = doc.createElement("meta");
+                metaEl.setAttribute("name", "viewport");
+                metaEl.setAttribute("content", "initial-scale=" + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", user-scalable=no");
+                if (docEl.firstElementChild) {
+                    docEl.firstElementChild.appendChild(metaEl)
+                } else {
+                    var wrap = doc.createElement("div");
+                    wrap.appendChild(metaEl);
+                    doc.write(wrap.innerHTML)
+                }
+            }
+
+            setViewport();
+            var newBase = 100;
+
+            function setRem() {
+                var visualView = Math.min(docEl.getBoundingClientRect().width, lib.maxWidth);
+                newBase = 100 * visualView / lib.desinWidth;
+                docEl.style.fontSize = newBase + "px"
+            }
+
+            var tid;
+            lib.desinWidth = 640;
+            lib.baseFont = 18;
+            lib.maxWidth = 540;
+            lib.init = function () {
+                win.addEventListener("resize", function () {
+                    clearTimeout(tid);
+                    tid = setTimeout(setRem, 300)
+                }, false);
+                win.addEventListener("pageshow", function (e) {
+                    if (e.persisted) {
+                        clearTimeout(tid);
+                        tid = setTimeout(setRem, 300)
+                    }
+                }, false);
+                if (doc.readyState === "complete") {
+                    doc.body.style.fontSize = lib.baseFont * dpr + "px"
+                } else {
+                    doc.addEventListener("DOMContentLoaded", function (e) {
+                        doc.body.style.fontSize = lib.baseFont * dpr + "px"
+                    }, false)
+                }
+                setRem();
+                docEl.setAttribute("data-dpr", dpr)
+            }
+        })(window, window["adaptive"] || (window["adaptive"] = {}));
+        window['adaptive'].desinWidth = 1920;// 设计图宽度
+        window['adaptive'].baseFont = 16;// 没有缩放时的字体大小
+        window['adaptive'].maxWidth = 1920;// 页面最大宽度 默认1920
+        window['adaptive'].init();// 调用初始化方法
+    </script>
+</head>
+
+<body>
+    <!-- 地图 -->
+    <div class="map" id="map">
+    </div>
+    <div id="signResult" style="position:absolute;left:5%;top:20%;background:oldlace;display: none;"></div>
+    <!--定位闪烁marker  -->
+    <div id="css_animation"></div>
+
+    <!-- -控件- -->
+    <!-- 左上侧搜索工具栏 -->
+
+    <!-- 头部tab栏 -->
+    <div id="headerTab">
+        <!-- logo -->
+        <!-- <img src="img/nav/xinhong_version.png" id="logoMax" width="100" alt=""> -->
+        <div id="logoMax">新宏气象</div>
+
+        <!-- 标题 -->
+        <div id="top_elem">
+            <h1 class="cur_t_elem"></h1>
+            <h1 class="cur_e_elem">位置天气</h1>
+        </div>
+
+        <!-- 右上角按钮-->
+        <div id="rightTopTab">
+            <!-- 搜索 -->
+            <div class="header">
+                <!-- <img src="img/icon_pad/search.png" id="searchMaxIcon" width="26" alt="" /> -->
+                <div class="searchDiv" id='searchDiv'>
+                    <!-- <h1 class="logo"><img src="img/logo.png" width="35" alt="" /></h1> -->
+                    <p class="searchBox">
+                        <input type="text" class="searchInput" placeholder="搜索气象站、机场"
+                            title="可输入城市名、拼音、气象站号与机场三字码、四字码" />
+                    </p>
+                    <a href="javascript:;" class="searchBtn"></a>
+                    <div class="contenty headerListUl">
+                        <ul style="display: none;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 一键清除 -->
+            <div id="top_delall" style="margin-top:-2px;">
+                <span class="cur_site"></span>
+            </div>
+
+            <!-- 用户位置 -->
+            <div id="top_usepos">
+                <span class="cur_site"></span>
+            </div>
+
+            <!-- 设置 -->
+            <div id="top_setting">
+                <span class="cur_setting"></span>
+            </div>
+
+            <!-- 设置弹框 -->
+            <div id="set_pop">
+                <!-- 粒子流 -->
+                <div id="haiLang">
+                    <span class="liZi">粒子流</span>
+                </div>
+                <!-- 关注位置 -->
+                <div id="top_site">
+                    <span class="cur_site">关注位置</span>
+                </div>
+                <!-- 刷新 -->
+                <div id="top_refresh">
+                    <span class="cur_refresh">刷新</span>
+                </div>
+            </div>
+
+            <!-- 模式切换 -->
+            <!-- <div id="moShiQieHuang">
+            <span class="gfs">GFS</span><span class="ec current">ECMF</span>
+        </div> -->
+
+            <!-- 影像图 地形图 -->
+            <div id="switchMap">
+                <span class="dixing current">地形图</span><span class="yingxiang">影像图</span>
+            </div>
+        </div>
+
+        <!-- 当前时间 -->
+        <div id="timeNow">00:00:00</div>
+
+    </div>
+
+
+    <!-- <div style="position:absolute;bottom:1rem;right:0;z-index:99999999999999999;">
+            <img src="img/cengci.png" alt="" width="80" />
+        </div>    -->
+
+    <!-- <div style="position:absolute;bottom:0.2rem;left:0.51rem;z-index:99999999999999999;">
+        <img width="95%" src="img/shijianzhou.png" alt="" />
+    </div> -->
+
+
+
+
+    <!-- 右下信息 -->
+    <!-- <div id="rightBottomTab">
+        <div id="jingWeiDuXinXi">
+            <span class="jingWeiDuXinXiText">101.73E, 33.63N</span>
+        </div>
+        <div id="banBenShuoMing">版本说明：XXXXXXXXXXXXXXXX</div>
+    </div> -->
+
+    <!-- 时间轴 -->
+    <div class="time">
+        <div class="swiper-container spindle swiper-containerReal swiper-no-swiping" style="display: none">
+            <div class="swiper-wrapper">
+            </div>
+        </div>
+
+        <div class="swiper-container spindle swiper-containerFc" style="display: none">
+            <div class="swiper-wrapper">
+            </div>
+        </div>
+        <div class="swiper-container spindle swiper-containerGfs" style="display: none">
+            <div class="swiper-wrapper">
+            </div>
+        </div>
+        <div class="swiper-container spindle swiper-containerFio" style="display: none">
+            <div class="swiper-wrapper">
+            </div>
+        </div>
+    </div>
+
+    <!-- 左侧菜单分类 -->
+    <div class="leftMain" id="leftMain">
+        <div class="MainElement">
+            <ul class="maxUl">
+                <li class="oneNavMaxLi orange">
+                    <div class="mainBtn posi active" id="pos_mixedGraph">
+                        <p class="oneNavIcon">
+                            <span>位置</span>
+                            <span>天气</span>
+                        </p>
+                        <!-- <img class="img1" style="display: none;" src="./img/nav/nav3.png" alt="">
+                        <img class="img2" src="./img/nav/nav3_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu" style="display: block;">
+                        <ul id="pos_mixedGraph_level" class="title clearfix">
+                            <li data-value="9999" class="active" style="display:none;">地面</li>
+                            <!-- <div class='menu'>
+                                <div class='share' id='ss_toggle' data-rot='-180'>
+                                    <img src="./img/nav/cengci.png"  width="70" alt="">
+                                </div>
+                            </div> -->
+                        </ul>
+                        <!-- 图层 -->
+                        <div class="tuCeng">
+                            <ul class="tuCeng_ul clearfix">
+                                <li id="weather_warn">
+                                    <span class="text current eye">态势</span>
+                                </li>
+                                <li class="pos_9999_9999_PR" id="stationLabel">
+                                    <span class="text eye">天气</span>
+                                </li>
+
+                                <!-- <li class="pos_9999_9999_Syno" style="margin-top:5px;">
+                                    <span class="text current eye">填图</span>
+                                </li> -->
+                                <!-- 
+                                <li class="leibao">
+                                    <span class="text eye warnThunderstorm current">雷暴</span>
+                                </li>
+                                <li class="dafeng">
+                                    <span class="text eye warnBigWind current">大风</span>
+                                </li> -->
+                                <li class="">
+                                    <span id="" class="text eye radar-list_btn">短临</span>
+                                </li>
+                                <li class="">
+                                    <span id="cloud_source_windCloud2" class="text eye">FY2</span>
+                                </li>
+                                <li>
+                                    <span class="text eye" id="fy4_gll_mult2">FY4</span>
+                                </li>
+                                <li class="pos_9999_9999_RAIN01">
+                                    <span class="text eye">降水</span>
+                                </li>
+                                <!-- <li>
+                                    <span class="text eye kui8">葵花8(云顶)</span>
+                                </li>
+                                <li>
+                                    <span class="text eye kui8">葵花8(云类)</span>
+                                </li>
+                                <li>
+                                    <span class="text eye kui8">葵花8(亮温)</span>
+                                </li> -->
+                                <!-- <li class="pos_9999_9999_WSS">
+                                    <span class="text eye" key="WSS">风场</span>
+                                </li> -->
+                                <!-- <li class="pos_9999_9999_PR">
+                                    <span class="text eye">海压</span>
+                                </li> -->
+                                <!-- <li class="pos_9999_9999_TT">
+                                    <span class="text eye" key="TT">气温</span>
+                                </li> -->
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 天气预警 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn" id="weather_warning">
+                        <p class="oneNavIcon">
+                            <span>天气</span>
+                            <span>预警</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav11.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav11_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu">
+                        <div class="tuCeng clearfix">
+                            <ul class="tuCeng_ul clearfix" id="weather_warning_select">
+                                <li class="leibao" style="margin-top:5px;">
+                                    <span class="text eye warnThunderstorm current">雷暴</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li>
+                                    <span class="text eye warnBigWind">大风</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <!-- <li>
+                                    <span class="text eye warnBigWave">大浪</span>
+                                    <span class="tuli"></span>
+                                </li> -->
+                                <li>
+                                    <span class="text eye warnBadVis">能见度</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li>
+                                    <span class="text eye warnHighTem">高低温</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="qiangjs">
+                                    <span class="text eye warnHeavyRain current">强降水</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 天气态势 -->
+                <li class="oneNavMaxLi">
+                    <div id="real_mixedGraph" class="mainBtn">
+                        <p class="oneNavIcon isTime">
+                            <span>天气</span>
+                            <span>态势</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav1.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav1_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu">
+                        <ul id="real_mixedGraph_level" class="title clearfix">
+                            <li data-value="0850">850</li>
+                            <li data-value="0700">700</li>
+                            <li data-value="0500">500</li>
+                            <li data-value="0300">300</li>
+                            <li data-value="0200">200</li>
+                            <li class='menu active' data-value="9999" style="top: 47px;left: 30px;">
+                                <div class='share' id='ss_toggle' data-rot='-180'>
+                                    <!-- <div class='circle'></div>
+                                    <div class='bar'></div> -->
+                                    <img id='dimian' src="./img/nav/cengci.png" width="70" alt="">
+
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 图层 -->
+                        <div class="tuCeng" style="height:auto;">
+                            <ul class="tuCeng_ul clearfix" style="display: none;">
+                                <li class="real_0850_0850_WSS" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="WSS">风场</span>
+                                </li>
+                                <li class="real_0850_0850_HH">
+                                    <span class="text eye">等高线</span>
+                                    <!-- <span class="tuli" key="HH"></span> -->
+                                </li>
+                                <li class="real_0850_0850_TT">
+                                    <span class="text eye" key="TT">等温线</span>
+                                </li>
+                                <li>
+                                    <span class="text eye">槽线</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="real_0850_0850_RH">
+                                    <span class="text eye" key="RH">相对湿度</span>
+                                </li>
+                                <li class="real_0850_0850_JB">
+                                    <span class="text eye" key="JB">积冰</span>
+                                </li>
+                                <li class="real_0850_0850_DB">
+                                    <span class="text eye" key="DB">颠簸</span>
+                                </li>
+
+                                <li class="real_0850_0850_CT24H">
+                                    <span class="text eye">24h变温</span>
+                                    <!-- <span class="tuli" key="CT24H"></span> -->
+                                </li>
+                                <li class="real_0850_0850_DI">
+                                    <span class="text eye" key="DI">散度</span>
+                                </li>
+                                <li class="real_0850_0850_JXDWW">
+                                    <span class="text eye">θ<sub>se</sub></span>
+                                    <!-- <span class="tuli" key="JXDWW"></span> -->
+                                </li>
+                                <li class="real_0850_0850_TA">
+                                    <span class="text eye">温度平流</span>
+                                    <!-- <span class="tuli" key="TA"></span> -->
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix" style="display: none;">
+                                <li class="real_0700_0700_TT" style=" margin-top: 5px;">
+                                    <span class="text eye" key="TT">温度</span>
+                                </li>
+                                <li class="real_0700_0700_HH">
+                                    <span class="text eye current">高度</span>
+                                    <!-- <span class="tuli" key="HH"></span> -->
+                                </li>
+                                <li class="real_0700_0700_WSS">
+                                    <span class="text eye current" key="WSS">风场</span>
+                                </li>
+                                <li class="real_0700_0700_DI">
+                                    <span class="text eye" key="DI">散度</span>
+                                </li>
+                                <li class="real_0700_0700_VS">
+                                    <span class="text eye" key="VS">垂直速度</span>
+                                </li>
+                                <li class="real_0700_0700_JB">
+                                    <span class="text eye" key="JB">积冰</span>
+                                </li>
+                                <li class="real_0700_0700_DB">
+                                    <span class="text eye" key="DB">颠簸</span>
+                                </li>
+                                <li>
+                                    <span class="text eye">槽线</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="real_0700_0700_RH">
+                                    <span class="text eye current" key="RH">湿度</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix" style="display: none;">
+                                <li class="real_0500_0500_WSS" style=" margin-top: 5px;">
+                                    <span class="text eye current">风场</span>
+                                    <!-- <span class="tuli" key="WIND"></span> -->
+                                </li>
+                                <li class="real_0500_0500_TT">
+                                    <span class="text eye current" key="TT">温度</span>
+                                </li>
+                                <li class="real_0500_0500_HH">
+                                    <span class="text eye current">高度</span>
+                                    <!-- <span class="tuli" key="HH"></span> -->
+                                </li>
+                                <li class="real_0500_0500_CH24H">
+                                    <span class="text eye">24H变高</span>
+                                    <!-- <span class="tuli" key="CH24H"></span> -->
+                                </li>
+                                <li class="real_0500_0500_JB">
+                                    <span class="text eye" key="JB">积冰</span>
+                                </li>
+                                <li class="real_0500_0500_DB">
+                                    <span class="text eye" key="DB">颠簸</span>
+                                </li>
+                                <li class="real_0500_0500_JXDWW">
+                                    <span class="text eye">假相当位温</span>
+                                    <!-- <span class="tuli" key="JXDWW"></span> -->
+                                </li>
+                                <li class="real_0500_0500_VO">
+                                    <span class="text eye" key="VO">涡度</span>
+                                </li>
+                                <li>
+                                    <span class="text eye">槽线</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="real_0500_0500_RH">
+                                    <span class="text eye" key="RH">湿度</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix" style="display: none;">
+                                <li class="real_0300_0300_TT" style=" margin-top: 5px;">
+                                    <span class="text eye" key="TT">温度</span>
+                                </li>
+                                <li class="real_0300_0300_HH">
+                                    <span class="text eye current">高度</span>
+                                    <!-- <span class="tuli" key="HH"></span> -->
+                                </li>
+                                <li class="real_0300_0300_WSS">
+                                    <span class="text eye current" key="WSS">风场</span>
+                                </li>
+                                <li class="real_0300_0300_DI">
+                                    <span class="text eye" key="DI">散度</span>
+                                </li>
+                                <li class="real_0300_0300_JB">
+                                    <span class="text eye">积冰</span>
+                                    <!-- <span class="tuli" key="JB"></span> -->
+                                </li>
+                                <li class="real_0300_0300_DB">
+                                    <span class="text eye">颠簸</span>
+                                    <!-- <span class="tuli" key="DB"></span> -->
+                                </li>
+                                <li>
+                                    <span class="text eye">槽线</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="real_0300_0300_RH">
+                                    <span class="text eye" key="RH">湿度</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix" style="display: none;">
+                                <li class="real_0200_0200_TT" style=" margin-top: 5px;">
+                                    <span class="text eye" key="TT">温度</span>
+                                </li>
+                                <li class="real_0200_0200_HH">
+                                    <span class="text eye current">高度</span>
+                                    <!-- <span class="tuli" key="HH"></span> -->
+                                </li>
+                                <li class="real_0200_0200_WSS">
+                                    <span class="text eye current">风场</span>
+                                    <!-- <span class="tuli" key="WIND"></span> -->
+                                </li>
+                                <li class="real_0200_0200_DI">
+                                    <span class="text eye" key="DI">散度</span>
+                                </li>
+                                <li class="real_0200_0200_DB">
+                                    <span class="text eye" key="DB">颠簸</span>
+                                </li>
+                                <li>
+                                    <span class="text eye">槽线</span>
+                                    <!-- <span class="tuli"></span> -->
+                                </li>
+                                <li class="real_0200_0200_RH">
+                                    <span class="text eye" key="RH">湿度</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="real_9999_9999_WSS" style=" margin-top: 5px;">
+                                    <span class="text current eye" key="WSS">风场</span>
+                                </li>
+                                <li class="real_9999_9999_PR">
+                                    <span class="text current eye">海压</span>
+                                </li>
+                                <li class="real_9999_9999_RH">
+                                    <span class="text eye" key="RH">湿度</span>
+                                </li>
+                                <li class="real_9999_9999_TT">
+                                    <span class="text eye" key="TT">气温</span>
+                                </li>
+                                <!-- <li>
+                                    <span class="text">雷达拼图</span>
+                                    <span class="eye" id="radar-list_btn"></span>
+                                    <span class="tuli" key="RADAR"></span>
+                                </li> -->
+                                <li>
+                                    <span class="text eye" id="weather_state">人工分析</span>
+                                </li>
+                                <!-- <li>
+                                    <span class="text">机场</span>
+                                    <span class="eye current" id="meteo_airport"></span>
+                                    <span class="tuli" key="AIPORT"></span>
+                                </li> -->
+                                <li>
+                                    <span class="text eye" id="live_water" key="WATER">陆地水文</span>
+                                </li>
+                                <li class="real_9999_9999_VIS">
+                                    <span class="text eye" key="VIS">能见度</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 卫星云图 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn" id="cloud">
+                        <p class="oneNavIcon isTime">
+                            <span>卫星</span>
+                            <span>云图</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav8.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav8_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu cloud">
+                        <div class="tuCeng clearfix">
+                            <ul class="tuCeng_ul clearfix" id="cloud">
+                                <li class="cloud_fy2" style=" margin-top: 5px;">
+                                    <span id="cloud_source_windCloud" class="text eye current">FY2</span>
+                                </li>
+                                <li>
+                                    <span class="text eye" id="fy4_gll_mult">FY4可见光</span>
+                                </li>
+                                <li>
+                                    <span class="text eye kui8">葵花8(云顶)</span>
+                                </li>
+                                <li>
+                                    <span class="text eye kui8">葵花8(云类)</span>
+                                </li>
+                                <li>
+                                    <span class="text eye kui8">葵花8(亮温)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 天气雷达 -->
+                <li class="oneNavMaxLi">
+                    <!-- <div class="mainBtn" id="radar"> -->
+                    <div class="mainBtn" id="yiji_radar">
+                        <p class="oneNavIcon isTime">
+                            <span>雷达</span>
+                            <span>监测</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav7.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav7_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu radar">
+                        <div class="tuCeng clearfix">
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="radar_huibo" style=" margin-top: 5px;">
+                                    <span id="radar_data_single" class="text eye current">拼图</span>
+                                </li>
+                                <li class="radar_huibo">
+                                    <span class="text eye current radar-list_btn">短临</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 航空气象 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn" id="aviation">
+                        <p class="oneNavIcon">
+                            <span>航空</span>
+                            <span>气象</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav5.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav5_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu">
+                        <div class="tuCeng clearfix">
+                            <ul class="tuCeng_ul clearfix">
+                                <li id="multi_select" style=" margin-top: 5px;">
+                                    <span class="text eye">航线</span>
+                                </li>
+                                <li id="meteo_airport">
+                                    <span class="text eye">机场</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 海洋气象 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn" id="sea_mixedGraph">
+                        <p class="oneNavIcon isTime">
+                            <span>海洋</span>
+                            <span>气象</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav2.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav2_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu">
+                        <ul class="title clearfix" id="sea_mixedGraph_level">
+                            <li data-value="0050">50m</li>
+                            <li data-value="0030">30m</li>
+                            <li data-value="0020">20m</li>
+                            <li data-value="0010">10m</li>
+                            <li data-value="0001">1m</li>
+                            <li data-value="9999" class='menu active' style="top: 47px;left: 30px;">
+                                <div class='share' id='ss_toggle' data-rot='-180'>
+                                    <!-- <div class='circle'></div>
+                                    <div class='bar'></div> -->
+                                    <img id="surface" src="./img/nav/cengci2.png" width="70" alt="">
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 图层 -->
+                        <div class="tuCeng">
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_0050_0050_TEMP" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="TEMP">海温</span>
+                                </li>
+                                <li class="sea_0050_0050_SEAFLOW">
+                                    <span class="text eye">海流</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_0030_0030_TEMP" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="TEMP">海温</span>
+                                </li>
+                                <li class="sea_0030_0030_SEAFLOW">
+                                    <span class="text eye">海流</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_0020_0020_TEMP" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="TEMP">海温</span>
+                                </li>
+                                <li class="sea_0020_0020_SEAFLOW">
+                                    <span class="text eye">海流</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_0010_0010_TEMP" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="TEMP">海温</span>
+                                </li>
+                                <li class="sea_0010_0010_SEAFLOW">
+                                    <span class="text eye">海流</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_0001_0001_TEMP" style=" margin-top: 5px;">
+                                    <span class="text eye current" key="TEMP">海温</span>
+                                </li>
+                                <li class="sea_0001_0001_SEAFLOW">
+                                    <span class="text eye">海流</span>
+                                </li>
+                            </ul>
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="sea_9999_9999_HS" style=" margin-top: 5px;">
+                                    <span class="text eye current">海浪</span>
+                                </li>
+                                <li class="sea_9999_9999_SEAWIND">
+                                    <span class="text eye">海面风</span>
+                                </li>
+                                <li>
+                                    <span class="text eye tide">潮汐</span>
+                                </li>
+                                <li>
+                                    <span class="text eye" id="seaFC">海区预报</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- 热带气旋 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn" id="typhoon_button">
+                        <p class="oneNavIcon">
+                            <span>热带</span>
+                            <span>气旋</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav9.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav9_1.png" alt=""> -->
+                    </div>
+                </li>
+
+                <!-- 城镇天气 -->
+                <li class="oneNavMaxLi">
+                    <div class="mainBtn city" id="city_station">
+                        <p class="oneNavIcon">
+                            <span>城镇</span>
+                            <span>天气</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav4.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav4_1.png" alt=""> -->
+                    </div>
+                </li>
+
+                <!-- 威胁指数 -->
+                <li class="oneNavMaxLi">
+                    <div id="numberFC_mixedGraph" class="mainBtn">
+                        <p class="oneNavIcon">
+                            <span>威胁</span>
+                            <span>指数</span>
+                        </p>
+                        <!-- <img class="img1" src="./img/nav/nav10.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav10_1.png" alt=""> -->
+                    </div>
+                    <!-- 二级菜单 -->
+                    <div class="erjiMenu dan">
+                        <div class="tuCeng clearfix">
+                            <ul class="tuCeng_ul clearfix">
+                                <li class="numberFC_NLT_0500_KI">
+                                    <span class="text eye current" key="KI">K指数</span>
+                                </li>
+
+                                <li class="numberFC_NLT_0500_SI">
+                                    <span class="text eye current">沙氏指数</span>
+                                    <!-- <span class="tuli" key="SI"></span> -->
+                                </li>
+                                <li class="numberFC_NLT_9999_CAPE">
+                                    <span class="text eye current">对流有效位能</span>
+                                    <!-- <span class="tuli" key="CAPE"></span> -->
+                                </li>
+                                <!-- <li class="numberFC_NLT_0500_TI">
+                                    <span class="text eye">威胁指数</span>
+                                    <span class="tuli" key=TI></span>
+                                </li>
+                                <li class="numberFC_NLT_9999_PS">
+                                    <span class="text eye">位势稳定度</span>
+                                    <span class="tuli" key="PS"></span>
+                                </li>
+                                <li class="numberFC_NLT_0500_VWS500">
+                                    <span class="text eye" key="VWS500">500-300hPa垂直风切变</span>
+                                </li>
+                                <li class="numberFC_NLT_0700_VWS700">
+                                    <span class="text eye" key="VWS700">700-300hPa垂直风切变</span>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <!-- <li>
+                    <div class="mainBtn" id="live_aq">
+                        <p>空气质量</p>
+                        <img class="img1" src="./img/nav/nav6.png" alt="">
+                        <img class="img2" style="display: none;" src="./img/nav/nav6_1.png" alt="">
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- <button class="b_panel">底部弹框</button> -->
+    <div id="bigImg" style="display: none"></div>
+    <!-- 底部弹框 -->
+    <div class="bottompanel">
+        <!-- <button class="panelCancel">X</button> -->
+        <!-- 位置天气 -->
+        <div class="posi_wea">
+            <h3 class="tog_title">
+                <span class="fcCurve">预报曲线</span>    
+                <span class="realCurve">实况曲线</span>            
+            </h3>
+            <!-- 预报信息 -->
+            <div class="station_info" id="station_info">
+                <h3>08时预报信息</h3>
+                <div class="info_content">
+                    <div class="station_title">
+                        <div>
+                            <p id="z_weather_img">
+                                <img src="img/xianxingWeather/cww02.png" width="100%" alt="" />
+                            </p>
+                            <p id="rightInfo_single_tt"> -- ℃</p>
+                            <p id="rightInfo_single_lnglat">--N，--E</p>
+                            <p class="rightInfo_single_time" id="z_biaoti_time">
+                                <i id="rightInfo_single_qb"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="station_content">
+                        <div>
+                            <p class="content_Element">
+                                <span class="text">能见度：</span>
+                                <span id="rightInfo_single_vis" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text" style="padding-left:14px">风：</span>
+                                <span id="rightInfo_single_wind" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="title">降水：</span>
+                                <span id="rightInfo_single_rn" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">湿度：</span>
+                                <span id="rightInfo_single_rh" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">气压：</span>
+                                <span id="rightInfo_single_pr" class="content"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos_time_profile" id="station_info_pos">
+                <span style="display: inline-block;width: 100%;margin-top: 10px;">
+                    <h3 class="moduleTitle" style="float:left;font-size:0.3rem;">时间剖面</h3>
+                    <button class="panelCancel" style="right: 0rem;">X</button>
+                    <div class="checkboxDiv clearfix">
+                        <p>
+                            <i class="inputStye current" mysrc="img/layout/tuli_shidu.png">
+                                <input name="point_profileChart_multi_radio" type="radio" value="RH" /></i>
+                            <span class="text">湿度</span>
+                        </p>
+                        <p>
+                            <i class="inputStye" mysrc="img/layout/tuli_jibing.png">
+                                <input name="point_profileChart_multi_radio" type="radio" value="ICE" /></i>
+                            <span class="text">积冰</span>
+                        </p>
+                        <p>
+                            <i class="inputStye" mysrc="img/layout/tuli_dianbo.png">
+                                <input name="point_profileChart_multi_radio" type="radio" value="TURB" /></i>
+                            <span class="text">颠簸</span>
+                        </p>
+                        <span class="tog_pic"> <img src="./img/nav/tog2.png" alt="" width="50"></span>
+                    </div>
+                    <img src="img/layout/tuli_shidu.png" height="16" width="189" alt="" style="float: right">
+                </span>
+                <div style="width:98%;height:32vh;" id="rightInfo_single_cross">
+                    <canvas style="width:7%;height:100%;float: left;" id="rightInfo_single_crossL"></canvas>
+                    <div class="content" style="width:93%;height:100%;float: right;overflow-x:auto;overflow-y:hidden;">
+                        <canvas style="width:100%;height:100%;position: relative;"
+                            id="rightInfo_single_crossR"></canvas>
+                        <div id="single_popup"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 地面要素预报曲线 -->
+            <div class="curve" id="station_info_curve">
+                <span class="panelCancel"></span>
+                <span class="togbtn"> <img src="./img/nav/tog1.png" width="60" alt=""></span>
+                <div class="curve_content">
+                    <div id="rightInfo_single_chart">
+                        <!-- 此处放图表 -->
+                    </div>
+                    <div class="curve_bottom" style="margin-top: -0.42rem;font-size: 0.25rem;" id="curve_bottom">
+                        <!-- <ul>
+                            <li>最高气温: <span style="color: #333;" class="text" id="rightInfo_single_mxt">--℃</span></li>
+                            <li>最低气温: <span style="color: #333;" class="text" id="rightInfo_single_mit">--℃</span></li>
+                            <li>平均海平面气压: <span style="color:#333;" class="text" id="rightInfo_single_mean_pr">--hPa</span></li>
+                        </ul> -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 城镇天气 -->
+        <div class="city_station">
+            <button class="panelCancel">X</button>
+            <!-- 预报信息 -->
+            <div class="station_info" id="town_info">
+                <h3>预报信息</h3>
+                <div id="rightInfo_station_cityName">--</div>
+                <div class="info_content">
+                    <div class="station_title">
+                        <div>
+                            <p id="rightInfo_station_tt"> -- ℃</p>
+                            <p id="rightInfo_station_wind">风:165.8° 0.9m/s</p>
+                            <p id="rightInfo_station_lnglat">经纬度：--N，--E</p>
+                            <p class="rightInfo_station_time">时间：Asia/Beijing（UTC+8）</p>
+                            <p class="rightInfo_station_time" id="rightInfo_station_hour"></p>
+                        </div>
+                    </div>
+                    <div class="station_content">
+                        <div>
+                            <p class="content_Element">
+                                <span class="text">湿度：</span>
+                                <span id="rightInfo_station_rh" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">气压：</span>
+                                <span id="rightInfo_station_pr" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">总云量：</span>
+                                <span id="rightInfo_station_cn" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">瞬时风速：</span>
+                                <span id="rightInfo_station_wsMax" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">能见度：</span>
+                                <span id="rightInfo_station_vis" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="text">云底高：</span>
+                                <span id="rightInfo_station_ch" class="content"></span>
+                            </p>
+                            <p class="content_Element">
+                                <span class="title">6小时降水：</span>
+                                <span id="rightInfo_station_rn" class="content"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 城镇精细预报 -->
+            <div class="module" id="town_fine_forecast">
+                <h3>城镇精细预报</h3>
+                <div class="list">
+                    <ul class="clearfix">
+                        <li style="width: 16.66%">时间</li>
+                        <li style="width: 16.66%">天气</li>
+                        <li style="width: 16.66%">气温</li>
+                        <li style="width: 16.66%">风</li>
+                        <li style="width: 16.66%">相对湿度</li>
+                        <li style="width: 16.66%">降水</li>
+                    </ul>
+                </div>
+                <div class="list_content" id="rightInfo_station_forecast">
+                    <!-- 此处放数据 -->
+                </div>
+
+            </div>
+
+            <!-- 未来7天预报 -->
+            <div class="forecast_7" id="forecast_7">
+                <h3>未来7天预报</h3>
+                <div class="list">
+                    <ul class="clearfix">
+                        <li style="width: 15%">时间</li>
+                        <li style="width: 15%">天气</li>
+                        <li style="width: 15%">最高温</li>
+                        <li style="width: 15%">最低温</li>
+                        <li style="width: 15%">降水</li>
+                        <li style="width: 20%">风</li>
+                    </ul>
+                </div>
+                <div class="list_content" id="rightInfo_station_fc7">
+                    <!-- 此处放数据 -->
+                </div>
+
+            </div>
+
+            <!-- 过去72小时时效图 -->
+            <!-- <div class="aging_72">
+                <h3>过去72小时时效图</h3>
+                <div style="width: 100%;height: 200px;background:cadetblue;margin-top:20px;">
+                    此处放图表
+                </div>
+            </div> -->
+
+        </div>
+
+
+    </div>
+    <div class="bottompanel_air">
+        <button class="panelCancel">X</button>
+        <!-- 机场 -->
+        <div class="for_airport" id="airport_info">
+            <!-- 预报信息 -->
+            <div class="station_info">
+                <h3 id="rightInfo_airport_name">预报信息</h3>
+                <div class="station_title">
+                    <p id="rightInfo_airport_lnglat">经纬度：--N，--E</p>
+                    <p>时区：Asia/Beijing（UTC+8）</p>
+                </div>
+            </div>
+
+            <!-- 机场实况 -->
+            <div class="air_real">
+                <h3>机场实况（METAR）</h3>
+                <div class="air_content">
+                    <p id="rightInfo_airport_msgReal">XXXXXXXXXXXXXXXX</p>
+                    <p class="content_Element">
+                        <span class="text">观测时间</span>
+                        <span id="rightInfo_airport_odate" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">能见度</span>
+                        <span id="rightInfo_airport_vis" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">云</span>
+                        <span id="rightInfo_airport_cloud" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">温度</span>
+                        <span id="rightInfo_airport_tt" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">海平面气压</span>
+                        <span id="rightInfo_airport_pr" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">天气现象</span>
+                        <span id="rightInfo_airport_wthc" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">风</span>
+                        <span id="rightInfo_airport_wind" class="content"></span>
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- 机场预报 -->
+            <div class="air_fore">
+                <h3>机场预报（TAF）</h3>
+                <div class="air_content">
+                    <p id="rightInfo_airport_msgFcst">XXXXXXXXXXXXXXXX</p>
+                    <p class="content_Element">
+                        <span class="text">预报时效</span>
+                        <span id="rightInfo_airport_ftime" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">能见度</span>
+                        <span id="rightInfo_airport_fvis" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">云</span>
+                        <span id="rightInfo_airport_fcloud" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">温度</span>
+                        <span id="rightInfo_airport_ftt" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">天气现象</span>
+                        <span id="rightInfo_airport_fwthc" class="content"></span>
+                    </p>
+                    <p class="content_Element">
+                        <span class="text">风</span>
+                        <span id="rightInfo_airport_fwind" class="content"></span>
+                    </p>
+                    <div class="changeP">
+                        <span class="text left">变化</span>
+                        <span id="rightInfo_airport_tmsgchn" class="content right"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 航空危险天气 -->
+        <div class="danger" id="airport_danger">
+            <h3>航空危险天气</h3>
+            <div class="danger_content">
+                <div class="left">
+                    <p>
+                        <span>能见度：</span>
+                        <span id="rightInfo_single_Dvis"></span>
+                    </p>
+                    <p>
+                        <span>雷暴概率：</span>
+                        <span id="rightInfo_single_ts"></span>
+                    </p>
+                    <p>
+                        <span>低空积冰：</span>
+                        <span id="rightInfo_single_iceL"></span>
+                    </p>
+                    <p>
+                        <span>中空颠簸：</span>
+                        <span id="rightInfo_single_turbL"></span>
+                    </p>
+                    <p>
+                        <span>光照时间：</span>
+                        <span id="rightInfo_single_sun"></span>
+                    </p>
+                </div>
+                <div class="right">
+                    <p>
+                        <span>云底高：</span>
+                        <span id="rightInfo_single_Dcbh"></span>
+                    </p>
+                    <p>
+                        <span>对流有效位能：</span>
+                        <span id="rightInfo_single_cape"></span>
+                    </p>
+                    <p>
+                        <span>中空积冰：</span>
+                        <span id="rightInfo_single_iceH"></span>
+                    </p>
+                    <p>
+                        <span>高空颠簸：</span>
+                        <span id="rightInfo_single_turbH"></span>
+                    </p>
+                    <p>
+                        <span>抬升指数：</span>
+                        <span id="rightInfo_single_li"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 剖面图 -->
+        <div class="moduleThree" id="airport_profile">
+            <span style="display: inline-block;width: 100%;height: 0.3rem;margin-top: 0.3rem;">
+                <h3 class="moduleTitle" style="margin-left: 5px;float:left;color: white;">时间剖面图</h3>
+                <div class="checkboxDiv">
+                    <p>
+                        <i class="inputStye current" mysrc="img/layout/tuli_shidu.png">
+                            <input name="airport_profileChart_multi_radio" type="radio" value="RH" /></i>
+                        <span style="color: white" class="text">湿度</span>
+                    </p>
+                    <p>
+                        <i class="inputStye" mysrc="img/layout/tuli_jibing.png">
+                            <input name="airport_profileChart_multi_radio" type="radio" value="ICE" /></i>
+                        <span style="color: white" class="text">积冰</span>
+                    </p>
+                    <p>
+                        <i class="inputStye" mysrc="img/layout/tuli_dianbo.png">
+                            <input name="airport_profileChart_multi_radio" type="radio" value="TURB" /></i>
+                        <span style="color: white" class="text">颠簸</span>
+                    </p>
+                </div>
+                <img src="img/layout/tuli_shidu.png" height="16" width="189" alt="" style="float: right">
+            </span>
+            <div style="width:100%;height:4.2rem;background:#f2f2f2;margin-bottom: 5px" id="rightInfo_airport_cross">
+                <canvas style="width:10%;height:100%;float: left;" id="rightInfo_airport_crossL"></canvas>
+                <div class="content" style="width:90%;height:100%;float: right;overflow-x:auto;overflow-y:hidden;">
+                    <canvas style="width:100%;height:100%;" id="rightInfo_airport_crossR"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹框 -->
+    <!-- 图例 -->
+    <div class="tuLi" id="showTuLi">
+        <!-- 机场 -->
+        <ul class="tuLiAir clearfix" id="AIPORT">
+            <li>
+                <img src="./img/airport/airport_error.png" alt="">
+                <span>不适航</span>
+            </li>
+            <li>
+                <img src="./img/airport/airport_runway_gray.png" alt="">
+                <span>正常</span>
+            </li>
+            <li>
+                <img src="./img/airport/airport_runway_yellow.png" alt="">
+                <span>能见度低</span>
+            </li>
+            <li>
+                <img src="./img/airport/airport_runway_delay.png" alt="">
+                <span>缺报</span>
+            </li>
+            <li>
+                <img src="./img/airport/airport_runway_brown.png" alt="">
+                <span>烟尘、沙尘、风暴</span>
+            </li>
+            <li>
+                <img src="./img/airport/airport_runway_green.png" alt="">
+                <span>雨、雪、地面凝结、吹雪、积雪</span>
+            </li>
+        </ul>
+
+        <div id="WATER">
+            <ul class="luDiShuiWen">
+                <li style="line-height:1;">陆地水文</li>
+                <li><img src="img/sea/shuiwen_label.png" width="15" alt="" /><span>正常</span></li>
+                <li><img src="img/sea/red.png" width="15" alt="" /><span>超过警戒水位</span></li>
+                <li><img src="img/sea/gray.png" width="15" alt="" /><span>暂缺</span></li>
+            </ul>
+        </div>
+
+        <canvas id="RAIN01"></canvas>
+        <canvas id="VIS"></canvas>
+        <canvas id="RH"></canvas>
+        <canvas id="DI"></canvas>
+        <canvas id="VO"></canvas>
+        <canvas id="JB"></canvas>
+        <canvas id="DB"></canvas>
+        <canvas id="VS"></canvas>
+        <!-- <canvas id="TT"></canvas>   -->
+        <canvas id="WSS"></canvas>
+        <canvas id="TEMP"></canvas>
+
+        <canvas id="KI"></canvas>
+        <!-- <canvas id="CAPE"></canvas> -->
+        <canvas id="VWS700"></canvas>
+        <canvas id="VWS500"></canvas>
+
+        <!-- 风场 -->
+        <!-- <div class="tuLiWind">
+            <span class="text">风场</span>
+            <img src="./img/legend/ws.png" alt="">
+            <span class="unit">单位：m/s</span>
+        </div> -->
+
+        <!-- 空气质量 -->
+        <div class="tuLiAq" style="width:6.5rem;">
+            <span class="text" style="width:55px;">空气质量</span>
+            <img src="./img/legend/aq_gfs.png" alt="">
+            <!-- <span class="unit">单位：m/s</span> -->
+        </div>
+
+        <!--  降水-->
+        <div class="tuLiRn">
+            <span class="text">降水</span>
+            <img src="img/warn_legend/bigRn.png" alt="">
+            <!-- <span class="unit">单位：m/s</span> -->
+        </div>
+        <!-- 大风 -->
+        <div class="tuLiBigwind">
+            <span class="text">大风</span>
+            <img src="img/warn_legend/bwind.png" alt="">
+            <!-- <span class="unit">单位：m/s</span> -->
+        </div>
+        <!-- 雷暴 -->
+        <div class="tuLiTS">
+            <span class="text">雷暴</span>
+            <img src="./img/legend/ts.png" alt="">
+            <!-- <span class="unit">单位：m/s</span> -->
+        </div>
+        <!-- 风云2 -->
+        <div class="tuLify2">
+            <span class="text">风云2</span>
+            <img src="img/legend/cloud.png" alt="">
+            <!-- <span class="unit">单位：m/s</span> -->
+        </div>
+        <!-- 风云4 -->
+        <!-- <div class="tuLify4">
+            <span class="text">风云4</span>
+            <img src="./img/legend/aq_gfs.png" alt="">
+        </div>  -->
+
+        <!-- 台风 -->
+        <div class="tuLiTyphoon TYPHOON">
+            <ul class="clearfix">
+                <li>
+                    <img src="./img/typhoon/tropicalDepress.png" alt="">
+                    <span>热带低压</span>
+                </li>
+                <li>
+                    <img src="./img/typhoon/tropicalStorm.png" alt="">
+                    <span>热带风暴</span>
+                </li>
+                <li>
+                    <img src="./img/typhoon/sTropicalStorm.png" alt="">
+                    <span>强热带风暴</span>
+                </li>
+                <li>
+                    <img src="./img/typhoon/typhoon.png" alt="">
+                    <span>台风</span>
+                </li>
+                <li>
+                    <img src="./img/typhoon/sTyphoon.png" alt="">
+                    <span>强台风</span>
+                </li>
+                <li>
+                    <img src="./img/typhoon/ssTyphoon.png" alt="">
+                    <span>超强台风</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--海区弹框  -->
+    <div id="hq_pop"></div>
+
+    <div class="cloudRadarF">
+        <!-- 云图 -->
+        <div class="cloudRadar" id="cloud_source_list">
+            <div class="bottom">
+                <div class="swiper-container spindle swiper-containerCloud">
+                    <div class="swiper-wrapper bottomF">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 雷达 -->
+        <div class="cloudRadar" id="radar-list">
+            <div class="bottom">
+                <!-- <div class="bottomFStyle contenty"> -->
+                <!-- <div class="bottomF"> -->
+                <div class="swiper-container spindle swiper-containerRadar">
+                    <div class="swiper-wrapper bottomF">
+                    </div>
+                </div>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 热带气旋台风弹框 -->
+    <div class="taiFeng taiFeng1">
+        <a href="javascript:;" class="taiFengDel del">X</a>
+        <div class="top">
+            <span class="nianFen">发布中心</span>
+            <div class="selectADiv">
+                <select id="typhoon_select_source" class="nianFenSelect" style="font-size:0.25rem;">
+                    <option value="BABJ" selected="selected">BABJ</option>
+                    <option value="RJTD">RJTD</option>
+                </select>
+            </div>
+            <span class="nianFen nian">年份</span>
+            <div class="selectADiv">
+                <select id="typhoon_select_year" class="nianFenSelect" style="font-size:0.25rem;">
+                </select>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="bottomT">
+                <p>
+                    <span style="width:15%;"></span>
+                    <span>编号</span>
+                    <span style="margin-left:-12px;">名称</span>
+                </p>
+            </div>
+            <div class="contenty bottomFStyle">
+                <div class="bottomF">
+                    <p>
+                        <span style="width:15%;"><i class="inputStye"><input type="checkbox"></i></span>
+                        <span>201803</span>
+                        <span>Jelawat</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    <div class="taiFeng taiFeng2">-->
+    <!--        <a href="javascript:;" class="taiFengDel del">X</a>-->
+    <!--        <div class="top">-->
+    <!--            <span class="nianFen">201803 杰拉华</span>-->
+    <!--        </div>-->
+    <!--        <div class="bottom">-->
+    <!--            <div class="bottomT">-->
+    <!--                <p>-->
+    <!--                    <span style="width:35%;">时间</span>-->
+    <!--                    <span style="width:27%;">中心气压</span>-->
+    <!--                    <span style="width:30%;">平均风速</span>-->
+    <!--                    &lt;!&ndash; <span style="width:28%;">中心风速</span> &ndash;&gt;-->
+    <!--                </p>-->
+    <!--            </div>-->
+    <!--            <div class="contenty bottomFStyle">-->
+    <!--                <div class="bottomF">-->
+    <!--                    <p>-->
+    <!--                        <span style="width:35%;">2017-06-13 12:00</span>-->
+    <!--                        <span style="width:27%;">6</span>-->
+    <!--                        <span style="width:30%;">13</span>-->
+    <!--                    </p>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+
+    <!-- 陆地水文 -->
+    <div id="waterLevelChartWin" class="chartWin">
+        <a href="javascript:;" class="chartWinDel del">X</a>
+        <div class="chartWinHead clearfix top">
+            <div class="tabtitle pulstationInfol-left">
+                <span class="titleInfo">开峰峪</span>
+                <span>水位变化曲线</span>
+            </div>
+        </div>
+        <div class="chartWinContent clearfix">
+            <div class="pull-left">
+                <div id="waterLevelChart" class="chartWinPic"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 海区预报 -->
+    <div class="haiQuYuBao" id="Sea_FC">
+        <a href="javascript:;" class="haiQuYuBaoDel del">X</a>
+        <a href="javascript:;" class="haiQuYuBaoDetailed"><img src="img/detailed.png" width="18" alt="" /></a>
+        <div class="top">
+            <span class="haiQuTitle" id="seaAreaName">--</span>
+            <span class="dateSpan" id="seaAreaFCDate">--</span>
+        </div>
+        <div class="bottomT">
+            <p class="bottomTitle">24时预报</p>
+            <ul class="clearfix">
+                <li>
+                    <span class="spanT">浪高</span>
+                    <span class="spanB" id="seaAreaFCWaveH">--</span>
+                </li>
+                <li>
+                    <span class="spanT">涌高</span>
+                    <span class="spanB" id="seaAreaFCYongH">--</span>
+                </li>
+                <li>
+                    <span class="spanT">海温</span>
+                    <span class="spanB" id="seaAreaFCTT">--</span>
+                </li>
+                <li>
+                    <span class="spanT">平均流速</span>
+                    <span class="spanB" id="seaAreaFCWaveS">--<i class="fangxiangI" id="seaAreaFCWaveSimg"></i></span>
+                </li>
+                <li>
+                    <span class="spanT">最大流速</span>
+                    <span class="spanB" id="seaAreaFCWaveSmax">--<i class="fangxiangI"
+                            id="seaAreaFCWaveSimgmax"></i></span>
+                </li>
+            </ul>
+        </div>
+        <div class="bottomT">
+            <p class="bottomTitle">48时预报</p>
+            <ul class="clearfix">
+                <li>
+                    <span class="spanT">浪高</span>
+                    <span class="spanB" id="seaAreaFCWaveH48">--</span>
+                </li>
+                <li>
+                    <span class="spanT">涌高</span>
+                    <span class="spanB" id="seaAreaFCYongH48">--</span>
+                </li>
+                <li>
+                    <span class="spanT">海温</span>
+                    <span class="spanB" id="seaAreaFCTT48">--</span>
+                </li>
+                <li>
+                    <span class="spanT">平均流速</span>
+                    <span class="spanB" id="seaAreaFCWaveS48">--<i class="fangxiangI"
+                            id="seaAreaFCWaveSimg48"></i></span>
+                </li>
+                <li>
+                    <span class="spanT">最大流速</span>
+                    <span class="spanB" id="seaAreaFCWaveSmax48">--<i class="fangxiangI"
+                            id="seaAreaFCWaveSimgmax48"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 海区预报简介 -->
+    <div class="haiQuYuBaoJianJie">
+        <a href="javascript:;" class="JianJieDel del">X</a>
+        <div class="top">
+            <span class="haiQuTitle" id="Sea_detailTitle">南海中东部</span>
+        </div>
+        <h3 class="jianJieP">简介</h3>
+        <div class="conDiv contenty">
+            <div id="Sea_detailContent"></div>
+        </div>
+    </div>
+
+    <!-- 潮汐 -->
+    <div class="tides">
+        <a href="javascript:;" class="tideDel del">X</a>
+        <div class="tideHead clearfix top">
+            <div class="tabtitle pull-left">
+                <span class="tideCname">吕四港</span>
+                <span>潮汐预报曲线</span>
+                <span class="tideTime"></span>
+            </div>
+        </div>
+        <div class="tideContent clearfix">
+            <div>
+                <div id="tidePic"></div>
+            </div>
+            <div class="highTide">
+                <div class="oned_tide">今天</div>
+                <div class="twod_tide">明天</div>
+                <div class="thrd_tide">后天</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑关注位置 -->
+    <div class="guanzhu_pop">
+        <span class="guanzhu_pop_del"></span>
+        <h3>关注位置</h3>
+        <div class="title">
+            <span>名称</span>
+            <span>经度</span>
+            <span>纬度</span>
+        </div>
+        <div class="gzcon">
+            <div class="contenty gzmainContenty">
+                <div class="gzmain">
+                </div>
+            </div>
+            <div class="edit">
+                <input class="edit_name" type="text" placeholder="名称">
+                <input class="edit_lng" type="text" placeholder="经度">
+                <input class="edit_lat" type="text" placeholder="纬度">
+                <span class="edit_btn"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 航线 航空 -->
+    <div id="botPanelHangKongDiv"></div>
+    <!-- 固定航线、自定义航线按钮 -->
+    <!-- <div class="airRouteBtn">
+        <span class="guding"></span>
+        <span class="zidingyi"></span>
+    </div> -->
+
+    <!-- 自定义航线列表 -->
+    <div class="airRouteList">
+        <div class="civilRouteBtn">
+            <span class="guding"></span>
+            <span class="zidingyi"></span>
+        </div>
+        <div class="custom_list">
+            <h3 style="color: white">自定义航线列表</h3>
+            <div class="list_con">
+                <p></p>
+            </div>
+        </div>
+        <div class="his_route_list">
+            <h3 style="color: white">历史航线列表</h3>
+            <div class="list_con">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 固定航线列表 -->
+    <div class="civilRouteList">
+        <div class="civilRouteBtn">
+            <span class="guding"></span>
+            <span class="zidingyi"></span>
+        </div>
+        <div class="civil_list">
+            <h3 style="color: white">固定航线列表</h3>
+            <div class="list_con">
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自定义航线弹框 -->
+    <div class="airRoute_pop">
+        <span class="airRoute_pop_del"></span>
+        <h3 style="color: white">自定义航线</h3>
+        <div class="airRoute_pop_name">
+            <span>航线名称</span>
+            <input type="text" class="airRoute_pop_input" />
+        </div>
+        <div class="airRoute_pop_title">
+            <span>经度</span>
+            <span>纬度</span>
+
+            <span>高度(m)</span>
+        </div>
+        <div class="airRoute_pop_con">
+            <div class="contenty airRoute_pop_contenty">
+                <div class="airRoute_pop_main">
+                    <div class="airRoute_pop_focus">
+                        <input type="text" class="pop_lng" value="112">
+                        <input type="text" class="pop_lat" value="25">
+                        <input type="text" class="pop_height" value="10000">
+                        <div class="add"><img src="img/guanzhu_pop/add_min.png" height="23" width="25" alt=""></div>
+                        <div class="del"><img src="img/guanzhu_pop/del.png" height="23" width="25" alt=""></div>
+                    </div>
+                </div>
+            </div>
+            <div class="airRoute_pop_time airRoute_pop_time1">
+                <span>起飞时间</span>
+                <input type="date" class="airRoute_pop_time_input airstayear" />
+                <input type="time" class="airRoute_pop_time_input airstahour" />
+            </div>
+            <div class="airRoute_pop_time airRoute_pop_time2">
+                <span>降落时间</span>
+                <input type="date" class="airRoute_pop_time_input airstayear" />
+                <input type="time" class="airRoute_pop_time_input airstahour" />
+            </div>
+            <div class="airRoute_pop_btn">
+                <span>生成航线</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 航线详情 -->
+    <div class="airRoutePar_pop">
+        <span class="airRoutePar_pop_del"></span>
+        <h3>航线详情</h3>
+        <div class="airRoutePar_pop_name">
+            <span>航线名称:</span>
+            <span class="pop_name">XXXXXXXXXXXXXXXX</span>
+        </div>
+        <div class="airRoutePar_pop_title">
+            <span>经度</span>
+            <span>纬度</span>
+            <span>高度</span>
+        </div>
+        <div class="airRoutePar_pop_con">
+            <div class="contenty airRoutePar_pop_contenty">
+                <div class="airRoutePar_pop_main">
+                    <div class="airRoutePar_pop_focus">
+                        <span>108°24′1″</span>
+                        <span>45°50′44″</span>
+                        <span>10000</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="airRoutePar_pop_time airRoutePar_pop_time1">
+                <span>起飞时间：</span>
+                <span>2020-04-03 15:30</span>
+            </div>
+            <div class="airRoutePar_pop_time airRoutePar_pop_time2">
+                <span>降落时间：</span>
+                <span>2020-04-03 17:30</span>
+            </div>
+            <div class="airRoutePar_pop_btn">
+                <span class="edit">编辑</span>
+                <span class="del">删除</span>
+            </div>
+        </div>
+
+    </div>
+    <div id="alertBox">
+        <p id="alertMsg">确定删除吗？</p>
+        <div id="alertSure">确定</div>
+        <div id="alertErorr">取消</div>
+    </div>
+
+    <!-- <img id="start_page" src="img/startpage.jpg" style="z-index: 999999;width:100%;height:100%;position: absolute;top: 0;left:0;"> -->
+</body>
+<script src="js/utils/dateUtil.js"></script>
+<script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
+<!-- <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
+<script src="js/lib/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/lib/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="js/lib/jquery.mCustomScrollbar.min.js"></script>
+
+<script src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/lib/ol-debug.js"></script>
+<script type="text/javascript" src="js/lib/proj4.js"></script>
+
+<!-- 等值线 -->
+<script type="text/javascript" src="js/Function/tool/OLStyleFactory.js"></script>
+<script type="text/javascript" src="js/Function/tool/LineDataMath.js"></script>
+<!-- <script type="text/javascript" src="js/Function/tool/ProfileChart.js"></script> -->
+<script src="js/lib/SliderBar/laydate/laydate.js"></script>
+
+<script type="text/javascript" src="js/lib/plotting/smooth.js"></script>
+<script type="text/javascript" src="js/Controller/DrawVectorLayer.js"></script>
+
+<!--云图动画  -->
+<script src="js/lib/nsmc/NSMCTileAnimationLayer.js"></script>
+<script src="js/lib/nsmc/page.image.animation.js"></script>
+<!-- 经纬度全圆盘坐标换算 -->
+<script src="js/lib/nsmc/page.image.transformNom.js"></script>
+
+<script src="js/lib/swiper.js"></script>
+<script src="js/lib/windstream.js"></script>
+<script src="js/lib/seawindstream.js"></script>
+<script src="js/lib/currentstream.js"></script>
+<script src="js/lib/wavestream.js"></script>
+<!-- 
+<script src="js/lib/FileSaver.min.js"></script>
+<script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.js"></script> -->
+<script data-main="js/main" src="js/lib/require.js"></script>
+<!--    <script src="js/user/user.js"></script>-->
+<script type="text/javascript" src="js/lib/Syunew6.js"></script>
+<script type="text/javascript" src="js/Controller/Keyvalidater.js"></script>
+
+<script src="./js/time.js"></script>
+<script src="./js/drag.js"></script>
+<script src="./js/leftmain.js"></script>
+<script src="./js/rightTopTab.js"></script>
+<script src="./js/tuCeng.js"></script>
+<script type="text/javascript" src="js/airRoutePopup.js"></script>>
+<script>
+    window.oncontextmenu = function (e) {
+        //取消默认的浏览器自带右键
+        e.preventDefault();
+    }
+    // document.onreadystatechange = function () {
+    //     if (document.readyState === "complete") {
+    //         console.log("文档以及它包含的资源都已加载完成");
+    //     }
+    // }
+</script>
+<script type="text/javascript">
+    // 获取用户定位信息 
+    function test(res) {
+        $('#signResult').html(res);
+    }
+</script>
+<script>
+    // 底部弹框
+    // $('.b_panel')[0].addEventListener('touchstart', function (e) {
+    //     $('.bottompanel').stop().slideDown()
+    // })
+    $('.panelCancel')[0].addEventListener('touchstart', function (e) {
+        $('.bottompanel').stop().slideUp()
+    })
+
+    // 测试弹框按钮
+    $('#chaoxi').on('touchstart', function (e) {
+        $('.tides').show()
+    })
+    $('#haiqu').on('touchstart', function (e) {
+        $('.haiQuYuBao').show()
+    })
+    $('#shuiwen').on('touchstart', function (e) {
+        $('#waterLevelChartWin').show()
+    })
+    $('.haiQuYuBaoDetailed').on('touchstart', function (e) {
+        $('.haiQuYuBaoJianJie').show()
+    })
+
+    // 弹框拖拽
+    // dragPanelMove($('#radar-list .top')[0], $('#radar-list')[0])
+    // dragPanelMove($('#radar_data_list .top')[0], $('#radar_data_list')[0])
+    // dragPanelMove($('#cloud_source_list .top')[0], $('#cloud_source_list')[0])
+    // dragPanelMove($('.taiFeng1 .top')[0], $('.taiFeng1')[0])
+    // dragPanelMove($('.taiFeng2 .top')[0], $('.taiFeng2')[0])
+    // dragPanelMove($('#Sea_FC .top')[0], $('#Sea_FC')[0])
+    // dragPanelMove($('.tides .top')[0], $('.tides')[0])
+    // dragPanelMove($('#waterLevelChartWin .top')[0], $('#waterLevelChartWin')[0])
+    // dragPanelMove($('.haiQuYuBaoJianJie .top')[0], $('.haiQuYuBaoJianJie')[0])
+
+    $('.panelDel').click(function (e) {
+        $('.rightPanel').hide()
+    })
+
+</script>
+
+</html>

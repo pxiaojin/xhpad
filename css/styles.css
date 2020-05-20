@@ -1,0 +1,165 @@
+@-webkit-keyframes badbounce {
+  0%,100% {
+    -webkit-transform: translateY(0px);
+  }
+  10% {
+    -webkit-transform: translateY(6px);
+  }
+  30% {
+    -webkit-transform: translateY(-4px);
+  }
+  70% {
+    -webkit-transform: translateY(3px);
+  }
+  90% {
+    -webkit-transform: translateY(-2px);
+  }
+}
+@-moz-keyframes badbounce {
+  0%,100% {
+    -moz-transform: translateY(0px);
+  }
+  10% {
+    -moz-transform: translateY(6px);
+  }
+  30% {
+    -moz-transform: translateY(-4px);
+  }
+  70% {
+    -moz-transform: translateY(3px);
+  }
+  90% {
+    -moz-transform: translateY(-2px);
+  }
+}
+@keyframes badbounce {
+  0%,100% {
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+    -ms-transform: translateY(0px);
+    -o-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  10% {
+    -webkit-transform: translateY(6px);
+    -moz-transform: translateY(6px);
+    -ms-transform: translateY(6px);
+    -o-transform: translateY(6px);
+    transform: translateY(6px);
+  }
+  30% {
+    -webkit-transform: translateY(-4px);
+    -moz-transform: translateY(-4px);
+    -ms-transform: translateY(-4px);
+    -o-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+  70% {
+    -webkit-transform: translateY(3px);
+    -moz-transform: translateY(3px);
+    -ms-transform: translateY(3px);
+    -o-transform: translateY(3px);
+    transform: translateY(3px);
+  }
+  90% {
+    -webkit-transform: translateY(-2px);
+    -moz-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
+    -o-transform: translateY(-2px);
+    transform: translateY(-2px);
+  }
+}
+.ss_animate {
+  -webkit-animation: badbounce 1s linear;
+  -moz-animation: badbounce 1s linear;
+  animation: badbounce 1s linear;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #212121;
+  margin: 0;
+  padding: 0;
+}
+
+.erjiMenu .title {
+  position: absolute;
+  bottom: 90px;
+  width: 60px;
+  height: 60px;
+  color: #fff;
+  position: fixed;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+  right: 30px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+.erjiMenu .title > .menu .share {
+  position: fixed;
+  right:-32px;
+  bottom:-38px;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  /* box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16); */
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  transition: all 1s ease;
+  /* background:  url('../img/nav/cengci.png') no-repeat center; */
+}
+/* .erjiMenu .title > div, */
+ .erjiMenu .title > li{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+    position: absolute;
+    width: 44px;
+    height: 20px;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 20px;
+    background: rgb(45, 129, 236,0.8);
+}
+.erjiMenu .title > li {
+  display: table-cell;
+  vertical-align: middle;
+}
+.erjiMenu .title > li:hover {
+  cursor: pointer;
+}
+.erjiMenu .title li:nth-child(1) {
+             top: 80px;
+    left: -49px;
+}
+.erjiMenu .title li:nth-child(2) {
+     top: 55px;
+    left: -32px;
+}
+.erjiMenu .title li:nth-child(3) {
+          top: 30px;
+    left: -12px;
+}
+.erjiMenu .title li:nth-child(4) {
+           top: 5px;
+    left: 14px;
+}
+.erjiMenu .title li:nth-child(5) {
+          top: -18px;
+    left: 43px;
+}
+/* .erjiMenu .title li:nth-child(6) {
+    top: -49px;
+    left: 43px;
+} */

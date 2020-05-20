@@ -1,0 +1,211 @@
+/*搜索*/
+.header{
+    float: left;
+    margin-top: -2px;
+}
+.header .searchDiv{
+    position: relative;
+    top: -0.02rem;
+    width: 2.6rem;
+    height: 0.46rem;
+    padding: 0.03rem;
+    background-color: #fff;
+    border: 1px solid #48acf3;
+    border-radius: 0.22rem;
+    -webkit-box-shadow:0 0 0.06rem #c1bfbf;
+       -moz-box-shadow:0 0 0.06rem #c1bfbf;
+         -o-box-shadow:0 0 0.06rem #c1bfbf;
+        -ms-box-shadow:0 0 0.06rem #c1bfbf;
+            box-shadow:0 0 0.06rem #c1bfbf;
+}
+.header .logo{
+    /* float: left;
+    margin-top: 7px;
+    margin-left: 10px; */
+    position: absolute;
+    left: 0.04rem;
+    top: 0.06rem;
+}
+.header .logo img {
+    position: absolute;
+    top: 0;
+    width: 0.45rem;
+    height: 0.45rem;
+}
+.header .searchBox{
+    /* float: left;
+    padding: 8px 18px 0 15px; */
+    position: absolute;
+    left: 0.1rem;
+    top: 0.12rem;
+}
+.header .searchInput{
+    position: absolute;
+    top: 0;
+    width: 2.3rem;
+    height: 0.26rem;
+    border: 0 none;
+    font-size: 0.22rem;
+    padding: 0 0.1rem;
+    color: #666;
+    /* border-left: 0.02rem solid #098CE6; */
+    outline: none;
+}
+.header .searchBtn{
+    position: absolute;
+    top: 0.08rem;
+    right: 0.16rem;
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background: url(../img/icon_pad/search1.png) no-repeat center center;
+    background-size: 0.3rem 0.3rem;
+}
+.header .headerListUl{
+    /* z-index: -1; */
+    z-index: 4;
+    position: absolute;
+    top: 0.47rem;
+    left: 0;
+    min-width: 2.45rem;
+    background: #fff;
+    border-radius: 3px;
+
+    /* width: 342px; */
+    max-height: 2.75rem;
+    overflow-y: auto;
+    -webkit-box-shadow:0 0 0.06rem #c1bfbf;
+       -moz-box-shadow:0 0 0.06rem #c1bfbf;
+         -o-box-shadow:0 0 0.06rem #c1bfbf;
+        -ms-box-shadow:0 0 0.06rem #c1bfbf;
+            box-shadow:0 0 0.06rem #c1bfbf;
+    -webkit-border-radius: 0.05rem;
+       -moz-border-radius: 0.05rem;
+         -o-border-radius: 0.05rem;
+        -ms-border-radius: 0.05rem;
+            border-radius: 0.05rem;
+}
+.header .headerListUl li{
+    /* height:23px; */
+    /* line-height: 23px; */
+    /* font-size:12px; */
+    color:#666;
+    cursor:pointer;
+
+    box-sizing:border-box;
+    padding: 0.05rem 0 0.05rem 0.15rem;
+    font-size: 0.12rem;
+    line-height: 0.2rem;
+    border-bottom: 1px solid #ddd;
+}
+.header .headerListUl li:hover{
+    color: #70B4F5;
+}
+
+/*工具*/
+.toolDiv{
+    float: right;
+    margin: -1px 0 0 10px;
+}
+.toolDiv .toolUl>li{
+    float: left;
+}
+.toolDiv .toolUl li a{
+    display:block;
+    width: 42px;
+    height: 42px;
+}
+.toolDiv ul li a.toolGongJu{
+    background-image: url(../img/layout/icon_gongju.png);
+
+}
+.toolDiv ul li a.toolSheZhi{
+    background-image: url(../img/layout/icon_shezhi.png);
+
+}
+.toolDiv ul li a.toolChongZhi{
+    background-image: url(../img/layout/icon_chongzhi.png);
+
+}
+.toolDiv ul li a.toolCeJu{
+    background-image: url(../img/layout/icon_ceju.png);
+}
+.toolDiv ul li a.toolXiaZai{
+    background-image: url(../img/layout/icon_xiazai.png);
+}
+.toolDiv ul li ul {
+    display:none;
+    background-color: #fff;
+    -webkit-box-shadow:0 0 6px #c1bfbf;
+       -moz-box-shadow:0 0 6px #c1bfbf;
+         -o-box-shadow:0 0 6px #c1bfbf;
+        -ms-box-shadow:0 0 6px #c1bfbf;
+            box-shadow:0 0 6px #c1bfbf;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+         -o-border-radius: 3px;
+        -ms-border-radius: 3px;
+            border-radius: 3px;
+}
+.toolDiv ul li ul li{
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+}
+.toolDiv ul li ul li a{
+    color:#666666;
+}
+.toolDiv ul li ul li a:hover{
+    color:#333333;
+}
+.toolDiv ul li a.shouGongFenXi {
+    background-image: url(../img/layout/icon_shougongfenxi.png);
+}
+.header .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar,.header .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 单点查询功能 */
+#singleStation{
+    position: relative;
+    background-image: url(../img/icon/icon18.png);
+    background-size:43px 42px;
+}
+.header .single_search{
+    position: absolute;
+    left: 314px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background: white;
+    width:231px;
+    display: none;
+}
+.header .single_search .sin_lng{
+    background:none;  
+    outline:none;  
+    border:none;
+    width:64px;
+}
+.header .single_search .sin_lat{
+    background:none;  
+    outline:none;  
+    border:none;
+    width:49px;
+}
+
+/*搜索图标*/
+
+#searchDiv{
+    /* display:none; */
+    margin-right: 2px;
+}
+#searchMaxIcon{
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-right: 2px;
+    vertical-align: middle;
+}

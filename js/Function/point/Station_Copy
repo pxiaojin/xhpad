@@ -1,0 +1,191 @@
+//站点 城市 气象数据
+define([], function() {
+    var key;
+    var type;
+    var item;
+
+    var button;     //功能开关按钮
+    var isOpen = false;
+    var layer;      //功能图层
+    var data;       //城镇气象数据（按分级记录，站点、站名、经纬度、天气信息）
+    var levelMax;
+
+    function init(){
+        button = $('#meteo_station');
+        button.click(function(){
+            if(!isOpen) {
+                open();
+            } else {
+                close();
+            }
+        });
+
+        //层级缩放监听
+        XHW.C.MapMove.addZoomCallback(function(){
+            if(isOpen) drawStationMarkers();
+        });
+
+        //时间轴变化监听
+        sliderBar.addCallback(function(){
+            // if(isOpen) getData();
+        });
+
+        type = key = 'station';
+        item = XHW.C.layerC.createItem('城镇', '', '', function(){
+            close();
+        })
+
+        //------------鼠标指向marker的监听
+        XHW.C.mouse.addCallback(type, function(value){
+            return getPopupHtml(value);
+        });
+    }
+
+    init();
+
+    function getData(){
+        // https://weather.xinhong.net/stationdata_surf/datafromselectedstationsbylevel?level=2
+        XHW.C.http.http('/stationdata_surf/datafromselectedstationsbylevel', '', function(data, time){
+            item.time = time;
+            XHW.C.layerC.updateLayerData(key, item);
+            collating(data)
+        })
+    }
+
+    /**
+     * 整理数据
+     * @param {*} rawData 原始数据
+     */
+    function collating(rawData){
+        data = {};
+        levelMax = 0;
+        for(var level in rawData) {
+            data[level] = [];
+            levelMax = levelMax >= level ? levelMax : level;
+            for(var key in rawData[level]) {
+                var keys = key.split('_');
+                data[level].push({
+                    code: keys[0],
+                    name: keys[1],
+                    lng: keys[2],
+                    lat: keys[3],
+                    wth: rawData[level][key].WTH
+                })
+            }
+        }
+        drawStationMarkers();
+    }
+
+    /**
+     * 显示城镇气象信息
+     */
+    function drawStationMarkers(){
+        var markers = [];
+        var zoom = XHW.map.getView().getZoom();
+        var level = (zoom - 2) < levelMax ? zoom - 2 : levelMax;
+        for(var i = 1; i <= level; i++) {
+            if(!data[i]) continue;
+            for(var j = 0; j < data[i].length; j++) {
+                var marker = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([parseFloat(data[i][j].lng), parseFloat(data[i][j].lat)]))
+                })
+    
+                marker.type = type;
+                marker.value = {
+                    code: data[i][j].code,
+                    name: data[i][j].name,
+                    lng: data[i][j].lng,
+                    lat: data[i][j].lat,
+                }
+    
+                marker.setStyle(new ol.style.Style({
+                    image: new ol.style.Icon(/** @type {olx.style.IconOptions} */({
+                        crossOrigin: 'anonymous',
+                        src: getImg(data[i][j].wth),
+                        scale: 0.2,
+                    })),                                          
+                }));
+    
+                markers.push(marker);
+            }    
+        }
+        
+        var tlayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: markers
+            })
+        });
+
+        XHW.map.addLayer(tlayer);
+        if(layer) {
+            remove();
+        }
+        layer = tlayer;
+    }
+
+    function getImg(wth){
+        var arr = [0,1,2,3,25,26,80,81,82,83,84,85,86,87,88,89,90];
+        var imgs;
+        var time = new Date();
+        var h = time.getHours();
+        if(h>=8 && h<=19){
+              imgs = 'img/weatherIcons/cww' + toTwo(wth) +'.png';
+        }else{
+            for(var i = 0; i < arr.length; i++){
+                if (wth == 0 || wth == 1 || wth == 2 || wth == 3 || wth == 25 || wth == 26 || wth == 80
+                     || wth == 81 || wth == 82 || wth == 83 || wth == 84 || wth == 85 || wth == 86 
+                     || wth == 87 || wth == 88 || wth == 89 || wth == 90){
+                    imgs = 'img/weatherIcons/cww' + toTwo(wth) + 'n.png';
+                } else{
+                    imgs = 'img/weatherIcons/cww' + toTwo(wth) +'.png';
+                }
+            }
+        };
+        return imgs;
+    };
+    
+    function toTwo(num){
+        num = parseInt(num);
+        return num > 10 ? num : '0' + num;
+    }
+
+    /**
+     * 根据值返回浮动框
+     * @param {*} value 
+     */
+    function getPopupHtml(value){
+        var lng = value['lng'];
+        var lat = value['lat'];
+        var name = value['name'];
+        var station = value['code'];
+        var html = '<div style="position:absolute;background:#ffffff;left: -10px;bottom:12px"><h1>' + name + "(" + station + ")" + '</h1>'
+            + '<h2>' + lat + ", " + lng + '</h2></div>';
+        return html;
+    }
+
+    /**
+     * 删除图层
+     */
+    function remove(){
+        XHW.map.removeLayer(layer);
+    }
+
+    function open(){
+        var b = XHW.C.layerC.addLayer(key, item);
+        if(!b) {
+            close();
+            return;
+        }
+        button.parent().addClass('current');
+        getData();
+        isOpen = true;
+    }
+
+    function close(){
+        button.parent().removeClass('current');
+        remove();
+        isOpen = false;
+        XHW.C.layerC.removeLayer(key);
+    }
+
+});

@@ -1,0 +1,66 @@
+/* 陆地水文*/
+.chartWin{
+    position:absolute;
+    top:15%;
+    left: 15%;
+    width:365px;
+    height:262px;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-image: url(../img/nav/water.png);
+    margin:0 -15px;
+    font-size: 14px;
+    color:#000;
+    /* -webkit-box-shadow: 0 0 1px #000000;
+    -moz-box-shadow: 0 0 1px #000000;
+    -o-box-shadow: 0 0 1px #000000;
+    -ms-box-shadow: 0 0 1px #000000;
+    box-shadow: 0 0 1px #000000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; */
+    display: none;
+}
+.chartWin .chartWinDel{
+    position: absolute;
+    right: 0;
+    top: 0.2rem;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+}
+.chartWin .chartWinDel:hover{
+    color:red;
+     text-decoration: none;
+}
+.chartWinHead{
+    /* background-color:#2d81ec; */
+    color: #fff;
+    padding:5px; 
+    margin-top: 0.2rem;
+    margin-bottom: -0.1rem;
+    /* -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+        -o-border-top-left-radius: 5px;
+    -ms-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-left-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+        -o-border-top-right-radius: 5px;
+    -ms-border-top-right-radius: 5px;
+        border-top-right-radius: 5px; */
+}
+.chartWinHead .tabtitle span{
+    margin-right: 5px;
+    margin-left: 10px;
+}
+.chartWinPic{
+    margin-top:5px; 
+    min-width:350px;
+    height:215px
+}

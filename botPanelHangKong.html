@@ -1,0 +1,139 @@
+<link rel="stylesheet" type="text/css" href="css/botPanelHangKong.css" />
+<!-- 底部面板 航线 航空-->
+<!-- <div class="botPanelHangKong" style="bottom:-500px"> -->
+<div class="botPanelHangKong" >
+<a href="javascript:;" class="delHangKong">X</a>
+    <div class="botHangKongRight">
+        <div class="for_airport">
+            <!-- 预报信息 -->
+            <div class="station_info">
+                <div class="station_title">
+                    <p class="curposi">经纬度：--N，--E</p>
+                    <p class="airtime">时区：Asia/Beijing（UTC+8）</p>
+                </div>
+                <div class="btn_air">
+                    <span class="start_btn">起飞点</span>
+                    <span class="end_btn">降落点</span>
+                </div>
+            </div>
+
+            <div class="route_info">
+                    <!-- 机场实况 -->
+                <div class="air_real">
+                    <h3 class="h3class">实况（METAR）</h3>
+                    <div class="air_content">
+<!--                        <p class="content_Element">-->
+<!--                            <span class="text">观测时间</span>-->
+<!--                            <span id="rightInfo_airline_odate"class="content"></span>-->
+<!--                        </p>-->
+                    </div>
+                </div>
+
+                <!-- 机场预报 -->
+                <div class="air_fore">
+                    <h3 class="h3class">预报（TAF）</h3>
+                    <div class="air_content">
+<!--                        <p class="content_Element">-->
+<!--                            <span class="text">预报时效</span>-->
+<!--                            <span id="rightInfo_airline_ftime" class="content"></span>-->
+<!--                        </p>-->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dataDiv">
+                <span class="time1">起飞:
+                    <input class="flydate" type="date">
+                    <input class="flyhour" type="time">
+                </span>
+                <span class="time2">降落：
+                    <input class="flydate" type="date">
+                    <input class="flyhour" type="time">
+                </span>
+                <p class="time_btn">查询</p>
+            </div>
+        </div>
+    </div>
+    <div id="airlineImg" style="display: none">
+        <img src="">
+    </div>
+    <div class="botHangKongLeft">
+        <div class="botHangKongLT">
+            <a id="airRouteHeightUnit" href="javascript:;">hPa</a>
+             <!-- <h4>航空剖面</h4>
+            <div class="dataDiv">
+                <span class="text">日期</span>
+                <span class="hangKongDateInput">
+                    <i id="airRouteDateInput"></i>
+                </span>
+            </div>
+           <div class="shiCiDiv">
+                <span class="text">时次</span>
+                <a id="airRouteHourReduce" href="javascript:;" class="shiCiUpBtn"></a>
+                <div class="selectADiv">
+                    <select id="airRouteHourSelect" class="selectOneself" name="">
+                        <option value="00">00时</option>
+                        <option value="01">01时</option>
+                        <option value="02">02时</option>
+                        <option value="03">03时</option>
+                        <option value="04">04时</option>
+                        <option value="05">05时</option>
+                        <option value="06">06时</option>
+                        <option value="07" selected="selected">07时</option>
+                        <option value="08">08时</option>
+                        <option value="09">09时</option>
+                        <option value="10">10时</option>
+                        <option value="11">11时</option>
+                        <option value="12">12时</option>
+                        <option value="13">13时</option>
+                        <option value="14">14时</option>
+                        <option value="15">15时</option>
+                        <option value="16">16时</option>
+                        <option value="17">17时</option>
+                        <option value="18">18时</option>
+                        <option value="19">19时</option>
+                        <option value="20">20时</option>
+                        <option value="21">21时</option>
+                        <option value="22">22时</option>
+                        <option value="23">23时</option>
+                    </select>
+                </div>
+                <a id="airRouteHourPlus" href="javascript:;" class="shiCiDownBtn"></a>
+            </div> -->
+
+            <div class="tuLiDiv">
+                <span class="text">湿度</span>
+                <img src="img/layout/tuli_shidu.png" height="16" width="189" alt="" />
+            </div>
+            <div class="checkboxDiv">
+                <p>
+                    <i class="inputStye current" mysrc="img/layout/tuli_shidu.png">
+                        <input name="route_profileChart_multi_radio" type="radio" value="RH" /></i>
+                    <span class="text">湿度</span>
+                </p>
+                <p>
+                    <i class="inputStye"  mysrc="img/layout/tuli_jibing.png">
+                        <input name="route_profileChart_multi_radio" type="radio" value="ICE" /></i>
+                    <span class="text">积冰</span>
+                </p>
+                <p>
+                    <i class="inputStye"  mysrc="img/layout/tuli_dianbo.png">
+                        <input name="route_profileChart_multi_radio" type="radio" value="TURB" /></i>
+                    <span class="text">颠簸</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="botPanelScroll">
+            <canvas style="width: 50px;height: 300px;float: left;background:white;" id="ProfileChart_yAxis"></canvas>
+            <div class="botPanelLeftTu content" style="height:300px;float: right;overflow-x:auto;overflow-y:hidden;">
+<!--                <div class="content" style="width:100%;height:100%;">-->
+                    <canvas id="ProfileChart_Content" style="width:100%;height:100%;position: relative;background:white;"></canvas>
+                    <div id="profilePopup"></div>
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 底部面板 航线 航空-->
+<script type="text/javascript" src="js/botPanelHangKong.js"></script>

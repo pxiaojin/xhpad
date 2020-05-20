@@ -1,0 +1,32 @@
+#rightBottomTab {
+    position: absolute;
+    bottom: 0;
+    right: 0.1rem;
+    width: 4rem;
+    height: 0.6rem;
+}
+
+
+/*经纬度信息框*/
+#jingWeiDuXinXi{
+    position: absolute;
+    right: 3rem;
+    background-color: transparent;
+}
+#jingWeiDuXinXi .jingWeiDuXinXiText {
+    position: absolute;
+    left: -1.8rem;
+    top: 0;
+    display: inline-block;
+    width: 1.7rem;
+    /* height: 0.3rem; */
+    font-size: 0.18rem;
+    color: #000;
+}
+
+/* 版本说明 */
+#banBenShuoMing {
+    position: absolute;
+    right: 0.24rem;
+    font-size: 0.18rem;
+}

@@ -1,0 +1,81 @@
+
+
+#header{
+    position: absolute;
+    top: 0;
+    height: 70px;
+    background: rgba(100, 100, 100, 0.85);
+    width: 100%;
+}
+
+#version{
+    font-size: 16px;
+    margin-top:-28px;
+    margin-left:130px;
+    color: #eeeeee;
+}
+#plotMenu{
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 300px;
+    background: rgba(100, 100, 100, 0.85);
+    padding: 10px;
+    color: #cccccc;
+}
+#download{
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 70px;
+    margin-right: 20px;
+}
+#aboutLabel{
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 70px;
+}
+#aboutContainer{
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    width: 450px;
+    visibility: hidden;
+    color: #eeeeee;
+}
+#aboutTitle{
+    position: absolute;
+    top: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    background: rgba(100, 100, 100, 255);
+    padding-left: 10px;
+}
+#aboutContent{
+    padding-left: 10px;
+    position: absolute;
+    top: 35px;
+    opacity: 0.8;
+    height: 230px;
+    width: 100%;
+    background: rgba(100, 100, 100, 200);
+    font-size: 14px;
+}
+.aboutText{
+    padding-left: 5px;
+    padding-right: 10px;
+    text-indent: 26px;
+}
+#closeBtn{
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+    padding-right: 10px;
+}
+/*button{*/
+    /*font-family: "微软雅黑", sans-serif;*/
+    /*opacity: 1;*/
+    /*min-width: 55px;*/
+/*}*/

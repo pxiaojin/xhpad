@@ -1,0 +1,44 @@
+#headerTab {
+    position: relative;
+    width: 100%;
+    height: 0.74rem;
+    background-image: linear-gradient(#8cbdf5, #629af7);
+}
+
+/* logo */
+#logoMax{
+    position: absolute;
+    top:0.22rem;
+    left: 0.8rem;
+    color: #fff;
+    font-size: 0.24rem;
+}
+
+/* 选中图层显示的时间和名称 */
+#top_elem{
+    position: absolute;
+    left: 3.4rem;
+    top: 0.1rem;
+    margin: 0 0.1rem 0 0;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    text-align: center;
+    color: #fff;
+    z-index: 999998;
+}
+#top_elem h1{
+    font-size: 0.3rem;
+    font-weight: 400;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+
+/* 当前时间 */
+#timeNow {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    color: #fff;
+    font-size: 0.3rem;
+}

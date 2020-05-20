@@ -1,0 +1,88 @@
+/*潮汐  */
+.tides{
+    position:absolute;
+    top:15%;
+    left: 15%;
+    width:540px;
+    height:auto;
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    background-image: url(../img/nav/tide.png);
+    background-size:cover;
+    margin:0 -15px;
+    font-size: 14px;
+    color:#fff;
+    /* -webkit-box-shadow: 0 0 1px #000000;
+    -moz-box-shadow: 0 0 1px #000000;
+    -o-box-shadow: 0 0 1px #000000;
+    -ms-box-shadow: 0 0 1px #000000;
+    box-shadow: 0 0 1px #000000;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px; */
+    display: none;
+}
+.tides .tideDel{
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+}
+.tides .tideDel:hover{
+    color:red;
+     text-decoration: none;
+}
+.tideHead{
+    /* background-color:#2d81ec; */
+    color: #fff;
+    padding:5px; 
+    margin-top: 0.2rem;
+    margin-bottom: -0.1rem;
+    /* -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+        -o-border-top-left-radius: 5px;
+    -ms-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+        -webkit-border-top-left-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+        -o-border-top-right-radius: 5px;
+    -ms-border-top-right-radius: 5px;
+        border-top-right-radius: 5px; */
+}
+.tideHead .tabtitle span{
+   margin-right: 15px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+#tidePic{
+    margin-top:5px; 
+    min-width:350px;
+    width: 540px;
+    height:212px;
+}
+.tideContent .timebtn{
+    padding-top:5px;
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+}
+.tideContent .tide-btn{
+    width:45px;
+}
+.tide-btn .btn{
+    padding:0;
+}
+
+.tideContent .highTide{
+    display: flex;
+    justify-content: space-around;
+    padding: 7px;
+    font-size: 12px;
+}

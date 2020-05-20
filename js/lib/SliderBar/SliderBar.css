@@ -1,0 +1,123 @@
+.slibarDiv{
+	position: absolute;
+	left: 0;
+    right: 0;
+    bottom: 0px;
+    height: 80px;
+    background-color: rgba(123, 123, 123, 0.3);
+	z-index: 2;
+    display: block;
+}
+.slibarTop{
+	position: absolute;
+    left: 18%;
+    width: 72%;
+    height: 50px;
+    top: 15px;
+}
+.slibarT{
+	position: absolute;
+    width: 100%;
+    top: 5px;
+    height: 10px;
+    background: rgba(0,0,0,.333);
+	border-radius: 10px;
+}
+#slider{
+	position: absolute;
+    top: -5px;
+    width: 30px;
+    height: 30px;
+    background: url(../img/icon14.png) no-repeat;
+}
+#bar{
+	position: absolute;
+    left: 18%;
+    width: 72%;
+    height: 50px;
+    top: 10px;
+}
+#scale{
+	position: absolute;
+    width: 72%;
+    height: 50px;
+    top: 30px;
+    left: 18%;
+}
+#timeInput{
+	position: absolute;
+    top: 12px;
+    left: 11%;
+    padding: 3px 40px 3px 15px;
+    border-radius: 25px;
+    box-shadow: 0 0 7px #6b6b6b;
+    font-size: 14px;
+    color: #3782cd;
+    font-weight: bold;
+    cursor: pointer;
+	background:#fff url(../img/icon15.png) 110px center no-repeat;
+}
+.slibarPlayBtn{
+	position: absolute;
+    left: 1%;
+	top: 5px;
+    width: 50px;
+    height: 64px;   
+    background: url(../img/icon6.png) center top no-repeat;
+}
+.slibarPlayBtn span,.slibarUpBtn span,.slibarDownBtn span{
+	position: absolute;
+    bottom: 0;
+    left: 12px;
+    font-size: 14px;
+    color: #fff;
+	font-weight: bold;
+	text-shadow: 1px 1px 3px #000;
+}
+.slibarUpBtn{
+	position: absolute;
+    left: 4%;
+    top: 5px;
+	width: 85px;
+    height: 64px;   
+    background: url(../img/icon7.png) center top no-repeat;
+}
+.slibarDownBtn{
+	position: absolute;
+    right: 1%;
+    top: 5px;
+	width: 85px;
+    height: 64px;   
+    background: url(../img/icon8.png) center top no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

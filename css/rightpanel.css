@@ -1,0 +1,1274 @@
+/*右侧面板*/
+.rightPanel{
+    display: none;
+    overflow:auto;
+    position: absolute;
+    left:0px;
+    top:0px;
+    height:100%;
+    width:5.5rem;
+    background-color:#fff;
+    z-index: 9999;
+    -webkit-box-shadow:0 0 10px #a5a5a5;
+       -moz-box-shadow:0 0 10px #a5a5a5;
+         -o-box-shadow:0 0 10px #a5a5a5;
+        -ms-box-shadow:0 0 10px #a5a5a5;
+            box-shadow:0 0 10px #a5a5a5;
+}
+.panelDel{
+    z-index: 5;
+    position: absolute;
+    left:6rem;
+    top:5rem;
+    width:30px;
+    height: 30px;
+    line-height: 30px;
+    text-align:center;
+    font-size:18px;
+    background-color:#408CD7;
+    -webkit-box-shadow: 0 0 6px #ababab;
+       -moz-box-shadow: 0 0 6px #ababab;
+         -o-box-shadow: 0 0 6px #ababab;
+        -ms-box-shadow: 0 0 6px #ababab;
+            box-shadow: 0 0 6px #ababab;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+         -o-border-radius: 50%;
+        -ms-border-radius: 50%;
+            border-radius: 50%;
+}
+.panelDel:hover{
+    background-color: #F7A715;
+}
+.rightPanel .panelTitle{
+    font-size:0.24rem;
+    color:#13507F;
+    padding:0.18rem 0 0.1rem 0.15rem;
+    font-weight: 600;
+}
+.rightPanel .titleDescribe{
+    font-size: 0.12rem;
+    color:#666;
+    line-height: 0.2rem;
+    padding-left:0.15rem;
+}
+.rightPanel .listNav{
+    overflow:hidden;
+    margin: 0.1rem 0 0.1rem 0.02rem;
+}
+.rightPanel .listNav li{
+    float: left;
+    margin:0 0.31rem;
+}
+.rightPanel .listNavBtn{
+    color:#408bd7;
+    font-size: 0.16rem;
+}
+.rightPanel .listNavBtn:hover{
+    color:#F7A715;
+}
+
+/*当前天气*/
+.rightPanel .moduleOne{
+    border-bottom:1px solid #ccc;
+    padding: 0.2rem 0.1rem 0.2rem 0.15rem; 
+    overflow: hidden;
+}
+.rightPanel .moduleOne .left{
+    float: left;
+}
+.rightPanel .moduleOne .leftIcon{
+    display:inline-block;
+    width:0.68rem;
+    height: 0.68rem;
+    margin-left: 0.72rem;
+    background:url(../img/icon.png) no-repeat;
+    vertical-align: middle;
+}
+.rightPanel .moduleOne .leftText{
+    font-size: 0.34rem;
+    color:#70B4F5;
+    vertical-align: middle;
+    margin-left: 0.08rem;
+}
+.rightPanel .moduleOne .right{
+    float: right;
+    width:3rem;
+}
+.rightPanel .moduleOne .rightElement{
+    float: left;
+    width: 1.45rem;
+}
+.rightPanel .moduleOne .rightText{
+    color: #666;
+    font-size: 0.14rem;
+    width: 0.5rem;
+    display: inline-block;
+}
+.right-Pane-jichang .moduleOne .rightText{
+    width:0.8rem;
+}
+
+
+.rightPanel .moduleOne .rightNum{
+    color:#13507F;
+    font-size: 0.14rem;
+    font-weight: 600;
+}
+.rightPanel .moduleOne .fengXiang{
+    width: 0.13rem;
+    height: 0.13rem;
+    display:inline-block;
+    vertical-align: middle;
+    margin-left:0.03rem;
+}
+
+/*城镇精细预报*/
+.rightPanel .moduleTwo{
+    padding: 0.1rem 0 0 0;
+}
+.rightPanel .moduleTitle{
+    color: #13507F;
+    font-size: 0.15rem;
+    font-weight: 600;
+    padding:0 0 0.1rem 0.15rem;
+}
+.rightPanel .moduleTwo .list li{
+    border-bottom: 1px solid #ccc;
+    height:0.4rem;
+    line-height: 0.4rem;
+}
+.rightPanel .moduleTwo .list li span{
+    color: #13507F;
+    font-size: 0.14rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.rightPanel .moduleTwo .minIcon{
+    width:0.34rem;
+    height: 0.34rem;
+    /* padding-left:34px; */
+    display:inline-block;
+    line-height: 0.34rem;
+}
+.rightPanel .moduleTwo .fengXiangSpan .fengXiang{
+    display:inline-block;
+    width: 0.15rem;
+    height: 0.3rem;
+    vertical-align: middle;
+    margin-left:0.03rem;
+}
+.rightPanel .moduleTwo .jiangShuiSpan .jiangShuiIcon{
+    display:inline-block;
+    width: 0.1rem;
+    height: 0.13rem;
+    background:url(../img/icon3.png) no-repeat;
+    margin-right:0.03rem;
+}
+.right-time {
+    position: absolute;
+    left: 2.5rem;
+    top: 0.36rem;
+}
+.right-time .right-time-day {
+    font-size: 0.2rem;
+    color: #70b4f5;
+}
+.right-time .right-time-hour {
+    font-size: 0.48rem;
+    color: #70b4f5;
+}
+.right-Pane-qixiang {
+    overflow: visible;
+}
+
+.scroll{
+    overflow: auto;
+    width: 100%;
+    height: 75%;
+}
+
+/*时间剖面图*/
+.rightPanel .moduleThree{
+    padding: 0.1rem 0 0.1rem 0;
+    border-bottom: 1px solid #ccc;
+}
+.rightPanel .moduleThree .pouMianTu{
+    width:4.5rem;
+    margin:0 auto;
+}
+
+/*强对流指数*/
+.rightPanel .moduleFour{
+    padding: 0.1rem 0 0.1rem 0;
+    border-bottom: 1px solid #ccc;
+}
+.rightPanel .moduleFour .conP{
+    line-height: 0.3rem;
+    padding-left:0.15rem;
+}
+.rightPanel .moduleFour .conP span{
+    display:inline-block;
+    font-size: 0.14rem;
+    color:#666;
+}
+.rightPanel .moduleFour .conP span:nth-of-type(2n+1){
+    width:80%;
+}
+
+/*模拟温度对数压力图解*/
+.rightPanel .moduleFive{
+    padding: 0.1rem 0 0.1rem 0;
+}
+.rightPanel .moduleFive .tuJie{
+    width:4.5rem;
+    margin:0 auto;
+}
+
+/*右侧面板 机场*/
+.right-Pane-jichang .listNav li {
+    /* margin: 0 13px; */
+    margin: 0 0.22rem;
+}
+.right-Pane-jichang .chengZhenBtn{
+    position: absolute;
+    right: 0.2rem;
+    top: 0.8rem;
+    font-size: 0.14rem;
+    color: #408bd7;
+    text-decoration: underline;
+}
+.right-Pane-jichang .chengZhenBtn:hover{
+    color: #F7A715;
+}
+.right-Pane-jichang .listNav{
+    border-top:1px solid #ccc;
+    padding-top: 0.05rem;
+}
+
+/*机场实况*/
+.rightPanel .moduleOne{
+    padding:0.1rem 0;
+}
+.rightPanel .modulOneCon{
+    overflow: hidden;
+    padding: 0 0 0.05rem 0.15rem;
+}
+.rightPanel .moduleOne .rightElement:nth-of-type(2n+1){
+    width:100%;
+}
+.rightPanel .moduleOne .rightElement:nth-of-type(2n){
+    width:40%;
+}
+/* .rightPanel .moduleOne .rightText{
+    width: 80px;
+} */
+
+/*机场预报*/
+.rightPanel .moduleTwo .rightElement:nth-of-type(2n+1){
+    width:100%;
+    float: left;
+}
+.rightPanel .moduleTwo .rightElement:nth-of-type(2n){
+    width:40%;
+    float: left;
+}
+.rightPanel .moduleTwo .rightText{
+    width: 0.8rem;
+    color: #666;
+    font-size: 0.14rem;
+    display: inline-block;
+}
+.rightPanel .moduleTwo .rightNum {
+    color: #13507F;
+    font-size: 0.14rem;
+    font-weight: 600;
+}
+.rightPanel .moduleTwo .xinXi{
+    font-size: 0.14rem;
+    padding: 0.05rem 0 0.05rem 0.15rem;
+}
+.rightPanel .moduleTwo .xinXiTwo{
+    font-size: 0.14rem;
+    padding: 0.05rem 0 0.05rem 0.15rem;
+}
+.rightPanel .moduleTwo{
+    border-bottom: 1px solid #ccc;
+}
+/*时间剖面*/
+.rightPanel .moduleThree{
+    position: relative;
+}
+.rightPanel .moduleThreeSelect{
+    position: absolute;
+    right:0.2rem;
+    top:0.15rem;
+}
+
+.rightPanel  .moduleFive{
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*时间剖面图 预报 */
+#incloudTwo{
+    position: relative;
+    width: 4.43rem;
+    height: 5.42rem;           
+    background-image: url('../img/poumiantu.png'); 
+}
+#incloudTwo .wrap{
+    position: relative;
+    position: absolute;
+    left: 0.4rem;
+    bottom:0;
+    width: 4.02rem;
+    height: 5.02rem; 
+    overflow: hidden;
+}
+#heziTwo{
+    width: 4rem;
+    height: 4.5rem;  
+    border-bottom: 2px solid #ddd;
+    border-left: 2px solid #ddd;    
+}
+#heziTwo .single{
+    position: relative;
+    width: 9.85rem;
+    height: 4.5rem;
+}
+#incloudTwo .wrap .staTime{
+    position: relative;
+    width: 9.85rem;
+    height: 0.4rem;
+}
+#incloudTwo2{
+    position: relative;
+    width: 4.43rem;
+    height: 5.42rem;           
+    background-image: url('../img/poumiantu.png'); 
+}
+#incloudTwo2 .wrap{
+    position: relative;
+    position: absolute;
+    left: 0.4rem;
+    bottom:0;
+    width: 4.02rem;
+    height: 5.02rem; 
+    overflow: hidden;
+}
+#heziTwo2{
+    width: 4rem;
+    height: 4.5rem;  
+    border-bottom: 2px solid #ddd;
+    border-left: 2px solid #ddd;    
+}
+#heziTwo2 .single{
+    position: relative;
+    width: 9.85rem;
+    height: 4.5rem;
+}
+#incloudTwo2 .wrap .staTime{
+    position: relative;
+    width: 9.85rem;
+    height: 0.4rem;
+}
+
+
+/*右侧面板*/
+
+.panelDel{
+    position: absolute;
+    z-index: 9999;
+    left: 5.2rem;
+    top: 0;
+    width:0.3rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align:center;
+    color:#fff;
+    font-size:0.18rem;
+    background-color:#408CD7;
+    -webkit-box-shadow: 0 0 6px #ababab;
+       -moz-box-shadow: 0 0 6px #ababab;
+         -o-box-shadow: 0 0 6px #ababab;
+        -ms-box-shadow: 0 0 6px #ababab;
+            box-shadow: 0 0 6px #ababab;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+         -o-border-radius: 50%;
+        -ms-border-radius: 50%;
+            border-radius: 50%;
+}
+.panelDel:hover{
+    background-color: #F7A715;
+}
+.rightPanel .panelTitle{
+    font-size:0.24rem;
+    padding:0.18rem 0 0.1rem 0.15rem;
+    font-weight: 600;
+}
+.rightPanel .titleDescribe{
+    font-size: 0.12rem;
+    color:#666;
+    line-height: 0.2rem;
+    padding-left:0.15rem;
+    padding-bottom: 0.05rem;
+}
+
+.rightPanel .listNav{
+    overflow:hidden;
+    padding: 0.1rem 0 0.1rem 2px;
+    border-top: 1px solid #ccc;
+}
+.rightPanel .listNav li{
+    float: left;
+    margin:0 0.1rem;
+}
+.rightPanel .listNavBtn{
+    color:#408bd7;
+    font-size: 0.16rem;
+}
+.rightPanel .listNavBtn:hover,.rightPanel .listNav li.current a{
+    color:#F7A715;
+}
+
+/*右侧面板*/
+.rightPanelWarp{
+    position: absolute;
+    /* width:970px; */
+    height:100%;
+    right:-5.5rem;
+    top:0;
+    z-index:4;
+}
+.rightPanel{
+    overflow:hidden;
+    position: absolute;
+    right:0;
+    top:0;
+    width:5.5rem;
+    height: 100%;
+    background-color:#fff;
+    -webkit-box-shadow:0 0 10px #a5a5a5;
+       -moz-box-shadow:0 0 10px #a5a5a5;
+         -o-box-shadow:0 0 10px #a5a5a5;
+        -ms-box-shadow:0 0 10px #a5a5a5;
+            box-shadow:0 0 10px #a5a5a5;
+    z-index: 2;
+}
+.panelDel{
+    z-index: 3;
+}
+.rightPanel .titleInput input{
+    width: 0.3rem;
+    margin-right: 0.05rem;
+    vertical-align: middle;
+    padding-left: 0.02rem;
+    border: 1px solid #13507F;
+}
+.rightPanel .titleInput i{
+    vertical-align: middle;
+    /* font-style: initial; */
+    font-size: 0.14rem;
+    color: #13507F;
+    display:inline-block;
+}
+
+.rightPanel .moduleTianQi {
+    padding: 0.1rem 0.1rem 0.1rem 0.15rem;
+    overflow: hidden;
+}
+.rightPanel .moduleTianQi .left{
+    float: left;
+}
+.rightPanel .moduleTianQi .right{
+    float: right;
+    width: 3.5rem;
+}
+.rightPanel .moduleTianQi .leftText {
+    font-size: 0.34rem;
+    color: #70B4F5;
+    vertical-align: middle;
+    margin-left: 0.08rem;
+}
+.rightPanel .moduleTianQi .leftText {
+    font-size: 0.28rem;
+    color: #70B4F5;
+    vertical-align: middle;
+    margin-left: 0.08rem;
+    display: block;
+}
+.rightPanel .moduleTianQi .rightElement {
+    float: left;
+    width: 1.45rem;
+    line-height: 0.2rem;
+}
+.rightPanel .rightNumSpan{
+    display: block;
+    text-align: center;
+    color: #13507F;
+    font-size: 0.14rem;
+    font-weight: bold;
+}
+.rightPanel .rightNumSpan .fengXiang{
+    width: 0.13rem;
+    height: 0.26rem;
+    display:inline-block;
+    vertical-align: middle;
+    margin-left:3px;
+}
+.rightPanel .moduleTianQiRight p span{
+    color: #13507F;
+}
+.rightPanel .scrollTop{
+    overflow:auto;
+    border-top: 1px solid #ccc;
+    /* height: 70%; */
+}
+
+
+/*图例*/
+.tuLi{
+    position: absolute;
+    right:0;
+    bottom:100px;
+    z-index: 1;
+    width:380px;
+}
+
+.tuLiRetract{
+    position: absolute;
+    right: 550px;
+    bottom: 102px;
+    width: 30px;
+    height: 38px;
+    background: rgba(0,0,0,0.6) url(../img/layout/ruliarrowr.png) no-repeat center center;
+    /*z-index:5;*/
+}
+.tuLiRetract.current{
+    background-image: url(../img/layout/ruliarrowl.png);
+}
+
+
+
+.tuLiTop{
+    overflow:hidden;
+    border-bottom:2px solid #468cc3;
+}
+.tuLiTop li{
+    float: left;
+    height: 34px;
+    position: relative;
+}
+.tuLiTop .tuLiLi{
+    width:117px; 
+    background:url(../img/layout/tuli_gray.png) no-repeat;
+    margin-left:-30px;
+}
+.tuLiTop .tuCengLi{
+    width: 88px;
+    background:url(../img/layout/tuceng_gray.png) no-repeat;
+}
+
+.tuLiTop .tuLiLi.current{
+    background-image:url(../img/layout/tuli_blue.png);
+}
+.tuLiTop .tuCengLi.current{
+    background-image:url(../img/layout/tuceng_blue.png);
+    
+}
+.tuLiTop .tuLiLi a{
+    display:block;
+    width:60px;
+    height: 34px;
+    margin-left:30px;
+}
+.tuLiTop .tuCengLi a{
+    display:block;
+    width:60px;
+    height: 34px;
+}
+.tuLiBot{
+    display:none;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.tuLiBot.current{
+    display:block;
+}
+.tuLiBot li{
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255,0.3);
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+}
+.tuLiBot li.last{
+    border-bottom: 0;
+}
+.tuLiBot li p{
+    display:inline-block;
+    font-size: 12px;
+    color:#ffffff;
+    vertical-align:middle;
+    line-height: 35px;
+}
+.tuLiBot li img{
+    display:inline-block;
+    vertical-align: middle;
+}
+.tuLiBot li .tuLiDel{
+    width: 12px;
+    height: 13px;
+    background:url(../img/layout/tulidel.png) no-repeat;
+    vertical-align: middle;
+    float: right;
+    margin-top: 14px;
+    margin-right: 15px;
+    margin-left:5px;
+}
+.tuLiBot li .tuLiDel:hover{
+    background-image: url(../img/layout/tulidel_red.png);
+}
+.tuLi .tuLiBot li p .tuLiBotListSpan{
+    margin:0 10px;
+}
+
+.tuLiBot li .tuLiEye{
+    width: 28px;
+    height: 14px;
+    background: url(../img/layout/eyeOpen.png) no-repeat;
+    background-size: 70%;
+    vertical-align: middle;
+    float: right;
+    margin-top: 16px;
+    margin-right: 0px;
+    cursor: pointer;
+}
+.tuLiBot li .tuLiEye.current{
+    background-image: url(../img/layout/eyeClose.png);
+    margin-top:17px;
+    background-size: 65%;
+}
+
+
+/* -------------机场图例----------------- */
+.tuLi .jichangUl{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.tuLi .jichangUl li{
+    padding:5px;
+    color:#fff;
+    float: left;
+    margin:3px 8px;
+    background-color: rgba(0,0,0,0);
+}
+.tuLi .jichangUl li img,.tuLi .jichangUl li span{
+    display:inline-block;
+    vertical-align: middle;
+}
+.tuLi .jichangUl li span{
+    padding-left:5px;
+    font-size: 13px;
+}
+/*机场图例*/
+#le_airport {
+    height: auto;
+    line-height: 0;
+    padding: 0;
+}
+#le_airport .jichangUl {
+     background:none; 
+    overflow: hidden;
+}
+#le_airport .jichangUl li{
+    border: 0;
+    height: auto;
+    line-height: 0;
+    margin:-2.5px 5px;
+}
+
+.tuLiBot li{
+    color:#ffffff;
+}
+.tuLiBot li p{
+    margin: 0 5px;
+}
+.tuLiBot li .tuLiDel{
+    cursor: pointer;
+}
+.tuLi .jichangUl li span{
+    font-size:12px;
+}
+
+.tuLiRetract{
+    bottom:47px;
+}
+.tuLi{
+    bottom:45px;
+}
+.tuLi .tuLiScroll{
+    max-height:160px;
+    overflow:auto;
+}
+.tuLi .tuLiBotT .tuCengP{
+    width: 70px;
+    text-align: center;
+    margin: 0 5px 0 0;
+}
+
+/*陆地—城镇*/
+.rightPanel .titleH2{
+    font-size: 30px;
+    padding: 18px 0 5px 15px;
+    font-weight: 600;
+    color: #13507f;
+}
+.rightPanel .titleDescribe2{
+    font-size: 16px;
+    padding-left: 15px;
+    color: #408bd7;
+}
+.rightPanel .moduleTwoTop .list li span{
+    width: 80px;
+    display: inline-block;
+    text-align: center;
+    margin:0;
+    height: 0.4rem;
+    /* line-height: 40px; */
+    position: relative;
+}
+.rightPanel .moduleTwoTop .list li span.fengXiangSpan i{
+    font-style: normal;
+    position: absolute;
+}
+.rightPanel .moduleTwoTop .list li span.fengXiangSpan i.oneI{
+    left:50%;
+    top:-8px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+}
+.rightPanel .moduleTwoTop .list li span.fengXiangSpan i.twoI{
+    left:50%;
+    top:7px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.rightPanel .scrollTop ul .modueOneLi span{
+    color: #408bd7;
+    font-size:15px;
+    font-weight: 900;
+}
+.rightPanel .moduleThree .radioDiv p{
+    display: inline-block;
+    padding: 0 10px;
+}
+.rightPanel .moduleThree .radioDiv p input{
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.rightPanel .moduleThree .radioDiv p span{
+    vertical-align: middle;
+}
+.rightPanel .posfDiv .posfDivlistNav li{
+    margin: 0 9px;
+}
+.rightPanel .posfDiv .posfDivlistNav .listNavBtn{
+    font-size:15px;
+    font-weight: 900;
+}
+
+
+
+/*右侧面板调整*/
+
+/*机场*/
+.rightPanel .listNav{
+    padding:0;
+    margin:0;
+}
+
+.rightPanel .moduleTwo .rightNum {
+    font-size: 0.13rem;
+    font-weight: normal;
+}
+#rightInfo_airport_lnglat{
+    font-size: 0.18rem;
+    color: #333;
+}
+.rightPanel .moduleFour .conP span{
+    color:#13507F;
+}
+.rightPanel .moduleTwo .rightText{
+    color:#13507F;
+}
+.rightPanel .listNav {
+    height: 0.4rem;
+    line-height: 0.4rem;
+}
+#right_info_airport .moduleFour .moduleTitle{
+    padding-bottom: 0.05rem;
+}
+
+/*城镇*/
+#right_info_station {
+    overflow: auto;
+}
+#rightInfo_station_lnglat{
+    font-size: 0.18rem;
+    color: #333;
+    font-weight: normal;
+    padding: 0.1rem 0 0.1rem 0.15rem;
+}
+.rightPanel .posfDiv .posfDivlistNav .listNavBtn{
+    font-weight: normal;
+}
+.rightPanel .scrollTop ul .modueOneLi span{
+    font-size: 0.14rem;
+    font-weight: normal;
+}
+.rightPanel .moduleTwo .list li span{
+    font-size: 0.12rem;
+    font-weight: normal;
+}
+@media screen and (max-width: 1200px) {
+    .rightPanel .moduleTwo .list li span{
+        font-size: 0.12rem;
+        transform: scale(0.8);
+    }
+}
+
+#rightInfo_station_forecast li:last-child,#rightInfo_station_fc7 li:last-child{
+    border-bottom: 0;
+}
+#right_info_station .moduleTwo .moduleTitle{
+    padding-bottom: 0;
+}
+#right_info_station .moduleTwo .list li.modueOneLi{
+    height: 0.35rem;
+    line-height: 0.35rem;
+}
+#right_info_station .moduleTwo .list li.modueOneLi span{
+    height: 0.35rem;
+    line-height: 0.35rem;
+}
+#right_info_station .moduleFour .moduleTitle{
+    padding-bottom: 0.05rem;
+}
+
+/*经纬度*/
+.rightPanel .moduleOne .rightText{
+    color:#13507F;
+}
+.rightPanel .moduleOne .rightNum{
+    font-size: 0.13rem;
+    font-weight: normal;
+}
+#right_info_Single .moduleTwoTop .moduleTitle{
+    padding-bottom: 0;
+}
+#right_info_Single .moduleTwoTop li.modueOneLi {
+    height: 0.35rem;
+    line-height: 0.35rem;
+}
+#right_info_Single .moduleTwoTop li.modueOneLi span{
+    height: 0.35rem;
+    line-height: 0.35rem;
+}
+
+.rightPanel .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.rightPanel .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar, .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+#rightInfo_single_vti{
+    margin:0 0.15rem;
+}
+#rightInfo_single_qb{
+    margin-right:0.15rem;
+}
+#chuiZhiCengMian .cengCiS{
+    width:9%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .gaoDuS{
+    width:11%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .qiWenS{
+    width:9%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .shiDuS{
+    width:10%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .fengS{
+    width:10%;
+    font-size: 0.12rem;
+}
+
+#chuiZhiCengMian .jiBingS{
+    width:9.5%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .dianBoS{
+    width:9.5%;
+    font-size: 0.12rem;
+}
+#chuiZhiCengMian .qieBianS{
+    width:18%;
+    font-size: 0.12rem;
+}
+
+#rightInfo_single_list li span{
+    width:12.5%;
+    font-size:0.12rem;
+}
+
+#rightInfo_single_list li .span11{
+    width:7%;
+}
+#rightInfo_single_list li .span12{
+    width:15%;
+}
+#rightInfo_single_list li .span13{
+    width:9%;
+}
+
+@media screen and (max-width: 1200px) {
+    #rightInfo_single_list li span{
+        font-size:0.12rem;
+        transform: scale(0.8);
+    }
+}
+#rightInfo_single_list li span .oneI,#rightInfo_single_list li span .twoI{
+    font-size:0.12rem;
+}
+.rightPanel .moduleTianQiRight p span {
+    font-size: 0.14rem;
+}
+
+/*航线标定右侧时间剖面图*/
+/* #hangBiaofixedDiv #mCSB_1_container {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+#hangBiaofixedDiv #mCSB_1_scrollbar_horizontal{
+    bottom:-5px;
+} */
+
+.rightPanelWarp .mCSB_inside>.mCSB_container {
+    margin-right: 0.15rem;
+}
+
+#rightInfo_station_cross .mCSB_container,
+#rightInfo_airport_cross .mCSB_container,
+#rightInfo_single_cross .mCSB_container,
+#rightInfo_multi_cross .mCSB_container {
+overflow-y: hidden;
+overflow-x: auto;
+/*height:100%;*/
+}
+#rightInfo_station_cross .mCSB_scrollTools_horizontal,
+#rightInfo_airport_cross .mCSB_scrollTools_horizontal,
+#rightInfo_single_cross .mCSB_scrollTools_horizontal,
+#rightInfo_multi_cross .mCSB_scrollTools_horizontal{
+bottom:-0.05rem;
+}
+
+
+
+/*图例 img*/
+#control_legend>li>img{
+    width:63%;
+}
+
+/*城镇 未来7天预报*/
+#rightInfo_station_fc7 li span{
+    
+    display:inline-block;
+    text-align:center;
+}
+#rightInfo_station_fc7 li span.span01{
+    width:15%;
+}
+#rightInfo_station_fc7 li span.span02{
+    width:20%;
+}
+#rightInfo_station_fc7 li span.span03{
+    width:14%;
+}
+#rightInfo_station_fc7 li span.span04{
+    width:14%;
+}
+
+#rightInfo_station_fc7 li span.span05{
+    width:14%;
+}
+#rightInfo_station_fc7 li span.span06{
+    width:23%;
+}
+
+
+#rightInfo_station_wind{
+    padding: 0.12rem 0 0 0;
+}
+
+
+/*航线*/
+#rightInfo_multi_lnglatS,#rightInfo_multi_lnglatE{
+    font-size:0.16rem;
+    font-weight: normal;
+    padding: 0px 0 0.05rem 0.15rem;
+    color: #7cbbf3;
+}
+
+
+
+/*模式切换*/
+#rightTopTab{
+    position: absolute;
+    right:40px;
+    top:8px;
+    z-index:999998;
+    overflow:hidden;
+}
+
+#moShiQieHuang{
+    float: left;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding:1px;
+    margin: 0 5px 0 5px;
+}
+
+#moShiQieHuang .gfs,#moShiQieHuang .ec{
+    display: inline-block;
+    padding: 2px 13px;
+    border-radius: 10px;
+    color: #ffffff;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+
+#moShiQieHuang .gfs.current,#moShiQieHuang .ec.current{
+    background-color: #ff9600;
+    box-shadow: 0 0 2px 0 black;
+}
+
+/*时间切换*/
+#tog_time{
+    float: left;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding:1px;
+    margin: 0 5px 0 5px;
+    display: none;
+}
+
+#tog_time span{
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 10px;
+    color: #ffffff;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+
+#tog_time span.current{
+    background-color: #ff9600;
+    box-shadow: 0 0 2px 0 black;
+}
+
+/* #haiLang{
+    float: left;
+    margin: 3px 5px 0 5px;
+}
+#haiLang .liZi{
+    display: inline-block;
+    background: url(../img/layout/icon_lizi2.png) no-repeat left center;
+    padding-left: 30px;
+    background-size: contain;
+    vertical-align: middle;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+#haiLang .liZi.current{
+    background-image: url(../img/layout/icon_lizi.png);
+} */
+
+#dotSwitch{
+    float: left;
+    margin: 3px 5px 0 5px;
+}
+#dotSwitch .dotSwitchSpan{
+    display: inline-block;
+    background: url(../img/layout/icon_lizi2.png) no-repeat left center;
+    background-size: contain;
+    padding-left: 30px;
+    vertical-align: middle;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+#dotSwitch .dotSwitchSpan.current{
+    background-image: url(../img/layout/icon_lizi.png);
+}
+
+
+
+
+
+/*天气态势*/
+#le_state_weather,#le_state_wind_wave,#le_state_lines{
+    height: auto;
+}
+.weatherStateUl{
+    background:none;
+    overflow:hidden;
+    display: inline-block;
+    padding-left: 67px;
+    vertical-align: middle;
+}
+.weatherStateUl li{
+    padding: 5px;
+    color: #fff;
+    float: left;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    height: auto;
+    line-height: 0;
+    margin:-2.5px 0;
+    width:99px;
+}
+ .weatherStateUl li img, .weatherStateUl li span{
+    display:inline-block;
+    vertical-align:middle;
+}
+.weatherStateUl li span{
+    font-size:12px;
+    padding-left:3px;
+}
+
+#le_state_weather,#le_state_lines,#le_state_wind_wave{
+    position: relative;
+}
+#le_state_weather .oneLi,#le_state_lines .oneLi,#le_state_wind_wave .oneLi{
+    position: absolute;
+    left:8px;
+}
+
+.rightPanel .checkboxDiv{
+    float: right;
+    margin-right:2%;
+}
+.rightPanel .checkboxDiv p{
+    display:inline-block;
+}
+.rightPanel .checkboxDiv .inputStye{
+    margin-top: 1px;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../img/layout/icon_checkboxgray.png) no-repeat;
+}
+.rightPanel .checkboxDiv .inputStye.current {
+    vertical-align: middle;
+    background-image: url(../img/layout/icon_checkboxgray2.png);
+}
+
+.rightPanel .checkboxDiv p input {
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    opacity: 0;
+}
+.rightPanel .checkboxDiv p span{
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* 单点时间剖面图 popup */
+#rightInfo_single_cross #single_popup{
+    position: absolute;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    pointer-events: none;
+
+}
+#rightInfo_single_cross #single_popup span{
+    color: white;
+    display:block; 
+}
+
+/* 台风图例 */
+#le_typhoon ul li{
+    border:0;
+    height: auto;
+    line-height: 0;
+    margin: -2.5px 5px;
+    width:30%;
+}
+
+/*图层 叠加 覆盖*/
+#tuCengDieJia{
+    float: left;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding:1px;
+    margin: 0 5px 0 5px;
+}
+
+#tuCengDieJia .dieJia,#tuCengDieJia .fuGai{
+    display: inline-block;
+    padding: 2px 13px;
+    border-radius: 10px;
+    color: #ffffff;
+    cursor:pointer;
+    transition:all 0.3s;
+}
+
+#tuCengDieJia .dieJia.current,#tuCengDieJia .fuGai.current{
+    background-color: #ff9600;
+    box-shadow: 0 0 2px 0 black;
+}
+
+/*经纬度信息框*/
+#jingWeiDuXinXi{
+    float: left;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding:1px;
+    margin: 3px 5px 0 5px;
+}
+#jingWeiDuXinXi .jingWeiDuXinXiText{
+    min-width: 100px;
+    text-align: center;
+    padding: 2px 7px;
+    font-size: 12px;
+    color: #fff;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -o-border-radius: 15px;
+    -ms-border-radius: 15px;
+     border-radius: 15px; 
+
+}

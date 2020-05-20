@@ -1,0 +1,331 @@
+/*固定航线、自定义航线按钮*/
+.airRouteBtn{
+    display: none;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    z-index: 999998;
+}
+.airRouteBtn span{
+    display:inline-block;
+    cursor:pointer;
+}
+.airRouteBtn .guding{
+  display:inline-block;
+  width:119px;
+  height: 38px;
+  background:url(../img/airRoute_pop/icon_airRoute1.png) no-repeat;
+  background-size:cover;
+  transition: all 0.3s;
+}
+.airRouteBtn span.cur{
+  background-image:url(../img/airRoute_pop/icon_airRoute1_1.png);
+}
+.airRouteBtn .zidingyi{
+  display:inline-block;
+  width:119px;
+  height: 38px;
+  background:url(../img/airRoute_pop/icon_airRoute2.png) no-repeat;
+  background-size:cover;
+  transition: all 0.3s;
+}
+.airRouteBtn span.cur2{
+  background-image:url(../img/airRoute_pop/icon_airRoute2_2.png);
+}
+.airRouteList .list_con p span:first-child{
+    display: inline-block;
+    width: 75%;
+}
+.airRouteList .list_con p span:last-child{
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    background: skyblue;
+}
+
+/*自定义航线弹框*/
+.airRoute_pop{
+    display: none;
+    width: 386px;
+    height: 303px;
+    position: absolute;
+    right: 270px;
+    top: 135px;
+    z-index: 3000;
+    background:url(../img/airRoute_pop/airRouteBg.png) no-repeat;
+}
+.airRoute_pop .airRoute_pop_del{
+    position: absolute;
+    right: 13px;
+    top: 20px;
+    width: 14px;
+    height: 16px;
+    background: url(../img/guanzhu_pop/icon_del.png) no-repeat;
+    cursor: pointer;
+}
+.airRoute_pop .airRoute_pop_del:hover {
+    background-image: url(../img/guanzhu_pop/icon_del2.png);
+}
+.airRoute_pop h3{
+    height: 47px;
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    font-weight: normal;
+    padding-top: 13px;
+}
+.airRoute_pop_name{
+    margin:5px 5px 5px 50px;
+}
+.airRoute_pop_name span{
+    display:inline-block;
+    font-size:16px;
+    vertical-align: middle;
+}
+.airRoute_pop_input{
+    width: 200px;
+    height: 24px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 15px;
+    vertical-align: middle;
+}
+.airRoute_pop_title span {
+    display: inline-block;
+    font-size: 16px;
+    width: 26%;
+    text-align: center;
+    margin-top: 2px;
+}
+.airRoute_pop_con {
+    position: relative;
+    padding-top: 2px;
+}
+.airRoute_pop_contenty{
+    height: 88px;
+    overflow: scroll;
+}
+.airRoute_pop_main{
+    margin: 4px 0;
+}
+.airRoute_pop_focus{
+    padding-left: 10px;
+    margin: 4px 0;
+}
+.airRoute_pop_main input{
+    width: 26%;
+    height: 24px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 15px;
+    vertical-align: middle;
+}
+.airRoute_pop_time{
+    margin: 12px 0 5px 35px;
+}
+.airRoute_pop_time2{
+    margin: 5px 0 5px 35px;
+}
+.airRoute_pop_main .delSpan {
+    width: 25px;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+    margin-top: 1px;
+}
+.airRoute_pop_main .addSpan{
+    width: 25px;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+    margin: 1px 15px 0 4px;
+}
+.airRoute_pop_time_input{
+    width: 120px;
+    height: 22px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.airRoute_pop_btn span{
+    display: block;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    background-color: #2b84cf;
+    margin: 7px auto 0 auto;
+    cursor:pointer;
+}
+
+
+
+/*航线详情*/
+.airRoutePar_pop{
+    display: none;
+    width: 311px;
+    height: 303px;
+    position: absolute;
+    left: 4rem;
+    top: 248px;
+    z-index: 3000;
+    background:url(../img/airRoute_pop/airRouteBg2.png) no-repeat;
+}
+.airRoutePar_pop_del{
+    position: absolute;
+    right: 13px;
+    top: 20px;
+    width: 14px;
+    height: 16px;
+    background: url(../img/guanzhu_pop/icon_del.png) no-repeat;
+    cursor: pointer;
+}
+.airRoutePar_pop .airRoutePar_pop_del:hover {
+    background-image: url(../img/guanzhu_pop/icon_del2.png);
+}
+.airRoutePar_pop h3{
+    height: 47px;
+    color: #fff;
+    text-align: center;
+    font-size: 22px;
+    font-weight: normal;
+    padding-top: 13px;
+}
+.airRoutePar_pop_name{
+    margin:5px 5px 5px 50px;
+}
+.airRoutePar_pop_name span{
+    display:inline-block;
+    font-size:16px;
+    vertical-align: middle;
+}
+
+.airRoutePar_pop_title span {
+    display: inline-block;
+    font-size: 16px;
+    width: 30%;
+    text-align: center;
+    margin-top: 2px;
+}
+.airRoutePar_pop_con {
+    position: relative;
+    padding-top: 2px;
+}
+.airRoutePar_pop_contenty{
+    height: 109px;
+    overflow: hidden;
+}
+
+.airRoutePar_pop_focus{
+    padding-left: 10px;
+}
+
+.airRoutePar_pop_time{
+    margin: 8px 0 0 35px;
+}
+.airRoutePar_pop_time span{
+    font-size: 15px;
+}
+.airRoutePar_pop_time2{
+    margin: 0px 0 7px 35px;
+}
+.airRoutePar_pop_focus span{
+    width: 30%;
+    height: 18px;
+    line-height: 15px;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.airRoutePar_pop_btn span{
+    display: inline-block;
+    width: 80px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    background-color: #2b84cf;
+    cursor: pointer;
+}
+
+.airRoutePar_pop_btn span.edit{
+    margin:0 30px 0 50px;
+}
+
+.airRouteList, .civilRouteList{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 15vw;
+    height: 500px;
+    min-height: 500px;
+    background-image:url(../img/nav/water.png);
+    background-size: 100% 100%;
+}
+.civilRouteBtn{
+    margin-top: 0.4rem;
+    margin-left: 0.18rem;
+    /*display: none;*/
+    /*left: 0;*/
+    /*top: 1.5rem;*/
+    /*z-index: 999998;*/
+}
+.civilRouteBtn span.cur{
+    background-image:url(../img/airRoute_pop/icon_airRoute1_1.png);
+}
+.civilRouteBtn span.cur2{
+    background-image:url(../img/airRoute_pop/icon_airRoute2_2.png);
+}
+.civilRouteBtn .guding{
+    display:inline-block;
+    width:85px;
+    height: 30px;
+    background:url(../img/airRoute_pop/icon_airRoute1.png) no-repeat;
+    background-size:85px 30px;
+    transition: all 0.2s;
+}
+.civilRouteBtn .zidingyi{
+    display:inline-block;
+    width:85px;
+    height: 30px;
+    background:url(../img/airRoute_pop/icon_airRoute2.png) no-repeat;
+    background-size:85px 30px;
+    transition: all 0.2s;
+}
+.airRouteList .custom_list,.airRouteList .his_route_list{
+    padding-top: 5px;
+    padding-left: 10px;
+    height: 45%;
+}
+.airRouteList .custom_list h3,.airRouteList .his_route_list h3{
+    color: #159DC7;
+}
+.airRouteList p.curr{
+    background: #d4571a;
+}
+
+.civilRouteList .civil_list{
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 10px;
+
+    height: 78%;
+}
+.civilRouteList .civil_list .list_con, .airRouteList .list_con{
+    height: 100%;
+    overflow: scroll;
+}
+.civilRouteList .civil_list h3{
+    color: #159DC7;
+}
+.civilRouteList p.curr{
+    background: #d4571a;
+}

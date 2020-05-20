@@ -1,0 +1,725 @@
+.b_panel {
+    position: absolute;
+    bottom: 3rem;
+}
+.bottompanel .panelCancel {
+    position: absolute;
+    top: -0.36rem;
+    right: 0.1rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    display: none;
+    z-index: 999;
+    background:url(../img/nav/del.png) no-repeat;
+    background-size:100%;
+}
+
+.bottompanel, .bottompanel_air{
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    bottom: 1px;
+    width: 100%;
+    /* height: 3rem; */
+    z-index: 99;
+    color: #ffffff;
+    background:#1F5CC7 !important; 
+    /* border: 1px solid #000; */
+    padding: 0.01rem;
+    box-shadow: 0 0 5px #929090;
+}
+
+i {
+    font-style: normal;
+}
+
+/* ------------------------------------------------------位置天气------------------------------------------------ */
+.posi_wea {
+    display: none;
+}
+.bottompanel .posi_wea>div {
+    float: left;
+    /* height: 3rem; */
+    padding: 0.1rem 0.2rem;
+    padding-left: 25vw;
+    /* border-left: 1px solid #000; */
+}
+
+/* 预报信息 */
+.bottompanel .posi_wea .station_info {
+    width:24vw;
+    height: 45vh;
+    /*background-image: url(../img/nav/bot_pan1.png);*/
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    margin-right: 0.2vw;
+}
+#station_info h3{
+    font-size: 0.2rem;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.5rem;
+    font-weight: normal;
+
+}
+#bigImg{
+    width: 10rem;
+    height: 7.5rem;
+    float: left;
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+}
+#bigImg img{
+    width: 100%;
+    height: 100%;
+}
+.bottompanel .posi_wea .station_info .info_content {
+    /*margin-top: 0.7rem;
+    height: 4rem;
+    overflow: auto;*/
+}
+/*--------预报信息----------*/
+.posi_wea .station_info .station_title {
+    /*display: table-cell;
+    float: left;
+    padding: 0;
+    width: 58%;*/
+}
+.posi_wea .station_info .station_title div{
+    text-align: center;
+}
+#rightInfo_single_tt{
+    position: absolute;
+    left: 1.5vw;
+    top: 20vh;
+    font-size: 0.5rem;
+    /*color: #BAFC05;*/
+}
+#rightInfo_single_wind{
+    /* color: #03A4DD; */
+    margin-top: 0.1rem;
+    font-size: 0.15rem;
+}
+#rightInfo_single_lnglat{
+    font-size: 0.3rem;
+    position: absolute;
+    left: 2rem;
+    top:4px;
+}
+.rightInfo_single_time{
+    font-size: 0.25rem;
+    color: #ffffff;
+}
+.posi_wea .station_info .station_title .left {
+    flex: 8;
+}
+.posi_wea .station_info .station_title .right {
+    flex: 4;
+}
+.posi_wea .station_info .station_content {
+    /*display: table-cell;*/
+    /*float: left;
+    margin-top: 0.12rem;*/
+
+}
+.posi_wea .station_info .station_content div {
+    position: absolute;
+    left: 10.5vw;
+    top: 6.5vh;
+}
+.posi_wea .station_info .station_content p {
+    margin-top: 0.05rem;
+    font-size: 0.25rem;
+    /*color: #ffffff;*/
+}
+
+/* 航空危险天气 */
+.bottompanel .danger {
+    width: 29%;
+    margin-right: 0.1rem;
+    background-image: url(../img/nav/bot_pan3.png);
+    background-size:100% 100%;
+}
+.danger .danger_content {
+    display: flex;
+    margin-top: 0.55rem;
+    height: 3rem;
+    overflow: auto;
+}
+ .danger .danger_content .left {
+     /* flex: 4;  */
+     padding-left: 0.45rem;
+}
+.danger .danger_content .right {
+     /* flex: 6;  */
+     padding-left: 0.4rem;
+} 
+/* .danger .danger_content p {
+    height: 0.4rem;
+    line-height: 0.4rem;
+} */
+
+/* 时间剖面 */
+.bottompanel .pos_time_profile {
+    width: 68%;
+    height: 370px;
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size:cover; 
+    display: none;
+}
+#rightInfo_single_cross canvas{
+    background: #fff;
+}
+.pos_time_profile .checkboxDiv{
+    float: right;
+    margin-right:2%;
+}
+.pos_time_profile .checkboxDiv p{
+    display:inline-block;
+    vertical-align: top;
+}
+.pos_time_profile .checkboxDiv .inputStye{
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../img/layout/icon_checkbox.png) no-repeat;
+    background-size: 100%;
+}
+.pos_time_profile .checkboxDiv .inputStye.current {
+    vertical-align: middle;
+    background-image: url(../img/layout/icon_checkbox2.png);
+}
+
+.pos_time_profile .checkboxDiv p input {
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    opacity: 0;
+}
+.pos_time_profile .checkboxDiv p span{
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 0.25rem;
+}
+
+/* 单点时间剖面图 popup */
+#rightInfo_single_cross #single_popup{
+    position: absolute;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    pointer-events: none;
+
+}
+#rightInfo_single_cross #single_popup span{
+    color: white;
+    display:block; 
+}
+
+/* 垂直层面 */
+.bottompanel .vertical {
+    width: 45%;
+}
+.vertical .vertical_content {
+    margin-top: 20px;
+}
+.vertical .vertical_content>ul>li {
+    float: left;
+    padding: 0 20px;
+}
+
+/* 地面要素预报曲线图 */
+.bottompanel .curve {
+    position: relative;
+    width: 100vw;
+    height: 30vh;
+    /*background-image: url(../img/nav/bot_pan2.png);
+    background-size:cover;*/ 
+    padding-top: 0.15rem;
+}
+.bottompanel .posi_wea .tog_title{
+    position: absolute;
+    top:0.3vh;
+    left: 25vw;
+    font-size: 0.3rem;
+    font-weight: normal;
+    z-index: 999;
+}
+.bottompanel .curve .togbtn{
+    position: absolute;
+    top: 0.1rem;
+    right: 0.8rem;
+    z-index: 999;
+}
+.bottompanel .curve .curve_content {
+    height: 42vh;
+    overflow: auto;
+}
+.curve_bottom ul {
+    margin-top: 0.1rem;
+    display: flex;
+}
+.curve_bottom ul li {
+    float: left;
+    margin-right: 15px;
+}
+#rightInfo_single_chart {
+    width: 100%;
+    /* height: 2.6rem; */
+    height: 37vh;
+    margin-top: -0.2rem;
+}
+
+
+/* ------------------------------------------------------城镇天气------------------------------------------------ */
+.city_station {
+    display: none;
+}
+.bottompanel .city_station>div {
+    float: left;
+    height: 38vh;
+    padding: 0.1rem;
+    /* border-left: 1px solid #000; */
+}
+/* 预报信息 */
+.bottompanel .city_station .station_info {
+    width: 26%;
+    background-image: url(../img/nav/bot_pan1.png);
+    background-size:100% 100%;
+}
+#rightInfo_station_cityName{
+    margin-left: 0.15rem;
+    font-size: 0.4rem;
+    height: 10%;
+    color: white;
+}
+#rightInfo_station_tt{
+    font-size: 0.48rem;
+    margin-top: 0.1rem;
+    color: #BAFC05;
+}
+#rightInfo_station_wind{
+    color: #03A4DD;
+    margin-top: 0.1rem;
+    font-size: 0.25rem;
+}
+#rightInfo_station_lnglat{
+    margin-top: 0.2rem;
+    font-size: 0.25rem;
+    color: #01F5E6;
+}
+.bottompanel .rightInfo_station_time{
+    font-size: 0.22rem;
+    margin-top: 0.12rem;
+    color: #ACCAE2;
+}
+.bottompanel .city_station .station_info .info_content {
+    height: 70%;
+    overflow: auto;
+}
+.bottompanel .city_station .station_info h3{
+    text-align: center;
+    margin-top: 0.3rem;
+    color:#28E0F3;
+    font-size: 0.3rem;
+}
+.bottompanel .city_station .station_info .station_title {
+    float: left;
+    padding: 0;
+    width: 60%;
+    text-align: center;
+}
+.bottompanel .city_station .station_info .station_title .left {
+    flex: 8;
+}
+.bottompanel .city_station .station_info .station_title .right {
+    flex: 4;
+}
+.bottompanel .city_station .station_info .station_content {
+    float: left;
+    margin-top: 0.5rem;
+}
+.bottompanel .city_station .station_info .station_content div {
+    text-align: center;
+    padding-right: 0.05rem;
+    margin-top: 0.1rem;
+    flex: 1;
+}
+.bottompanel .city_station .station_info .station_content p {
+    height: 0.25rem;
+    margin-top: 0.1rem;
+    line-height: 0.25rem;
+    font-size: 0.2rem;
+    color: #ACCAE2;
+}
+/*城镇精细预报*/
+.bottompanel .module {
+    width: 33.6%;
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size:100% 100%;
+    margin:0 0.2%;
+}
+.city_station .module .list {
+    margin-top: 0.1rem;
+}
+.city_station .module .list>ul li {
+    float: left;
+    text-align: center;
+    /* padding: 0 20px; */
+}
+.city_station .module .list_content {
+    margin-top: 0.1rem;
+    height: 65%;
+    overflow: auto;
+}
+.city_station .module h3 {
+    text-align: center;
+    margin-top: 0.16rem;
+    color:#28E0F3;
+    font-size: 0.3rem;
+}
+.city_station .module .list_content span {
+    display: inline-block;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+}
+/* 未来七天预报 */
+.bottompanel .forecast_7 {
+    width: 40%;
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size:100% 100%;
+}
+.city_station .forecast_7 .list {
+    margin-top: 0.1rem;
+}
+.city_station .forecast_7 .list>ul li {
+    float: left;
+    text-align: center;
+    /* padding: 0 20px; */
+}
+.city_station .forecast_7 .list_content {
+    margin-top: 0.1rem;
+    margin-left: 0.1rem;
+    height: 74%;
+    overflow: auto;
+}
+.city_station .forecast_7 h3{
+    text-align: center;
+    margin-top: 0.16rem;
+    color:#28E0F3;
+    font-size: 0.3rem;
+}
+
+.city_station .forecast_7 .list_content span {
+    display: inline-block;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+}
+/* 过去24小时时效 */
+.bottompanel .aging_72 {
+    width: 25%;
+}
+
+/* ------------------------------------------------------机场------------------------------------------------ */
+.bottompanel_air .for_airport {
+    display: none;
+    position: relative;
+    width: 35%;
+    height: 4.8rem;
+    /* background: black; */
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size:100% 100%;
+}
+.bottompanel_air .for_airport>div {
+    /* float: left; */
+    /* height: 4rem; */
+    padding: 0.2rem;
+    /* border-left: 1px solid #000; */
+}
+#rightInfo_airport_name{
+    font-size: 0.2rem;
+    color: #BAFC05;
+    display:inline-block;
+}
+.bottompanel_air .for_airport .station_info div{
+    display:inline-block;
+}
+.bottompanel_air .for_airport .station_info div p{
+    font-size: 0.15rem;
+    color: #01F5E6;
+    display:inline-block;
+}
+/* 位置信息 */
+.bottompanel_air  .for_airport .station_info{
+    padding-top: 0.35rem;
+}
+.for_airport .station_info p {
+    height: 0.3rem;
+    line-height: 0.3rem;
+}
+.for_airport .air_content {
+    margin-top: 0.1rem;
+}
+.for_airport .air_content .content_Element {
+    height: 0.3rem;
+    line-height: 0.3rem;
+}
+.for_airport .air_content p .text {
+    display: inline-block;
+    width: 29%;
+}
+
+/* 机场实况 */
+.for_airport .air_real {
+    position: absolute;
+    left: 0.2rem;
+
+    width: 49%;
+    height: 4rem; 
+}
+.for_airport .air_real .air_content {
+    /* height: 2.36rem; */
+    overflow: auto;
+}
+#rightInfo_airport_msgReal {
+    margin-top: 0.05rem;
+}
+
+/* 机场预报 */
+.for_airport .air_fore {
+    /* width: 37%;
+    height: 3rem; */
+    position: absolute;
+    right: 0.2rem;
+    /*top: 1.7rem;*/
+    width: 50%;
+    height: 4rem; 
+}
+.for_airport .air_fore .air_content {
+    /* height: 2.36rem; */
+    overflow: auto;
+}
+.for_airport .air_fore .changeP span {
+    display: block;
+}
+.for_airport .air_fore .changeP {
+    display: flex;
+    margin-top: 0.05rem;
+    margin-bottom: 0.1rem;
+}
+.for_airport .air_fore .changeP .left {
+    flex: 2;
+}
+.for_airport .air_fore .changeP .right {
+    flex: 8;
+}
+
+/* 机场剖面图 */
+.bottompanel_air .moduleThree{
+    display: block;
+    width: 40%;
+    height: 4.8rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 8px;
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size: cover;
+}
+.bottompanel_air .moduleThreeSelect{
+    position: absolute;
+    right:20px;
+    top:15px;
+}
+
+.bottompanel_air .checkboxDiv{
+    float: right;
+    margin-right:2%;
+}
+.bottompanel_air .checkboxDiv p{
+    display:inline-block;
+}
+.bottompanel_air .checkboxDiv p span{
+    color: black;
+}
+.bottompanel_air .checkboxDiv .inputStye{
+    margin-top: 1px;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../img/layout/icon_checkboxgray.png) no-repeat;
+}
+.bottompanel_air .checkboxDiv .inputStye.current {
+    vertical-align: middle;
+    background-image: url(../img/layout/icon_checkboxgray2.png);
+}
+
+.bottompanel_air .checkboxDiv p input {
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    opacity: 0;
+}
+.bottompanel_air .checkboxDiv p span{
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.bottompanel_air .danger {
+    position: absolute;
+    left: 35%;
+    width: 25%;
+    bottom: 0;
+    height: 4.8rem;
+    padding-top: 28px;
+    /* background: black; */
+    background-image: url(../img/nav/bot_pan2.png);
+    background-size:100% 100%;
+}
+.bottompanel_air .danger h3{
+    padding-left: 20px;
+}
+.bottompanel_air .danger p{
+padding: 10px 0;
+}
+.bottompanel_air .panelCancel{
+    z-index: 5;
+    position: absolute;
+    right: 2px;
+    top: -25px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    background-color: #408CD7;
+    -webkit-box-shadow: 0 0 6px #ababab;
+    -moz-box-shadow: 0 0 6px #ababab;
+    -o-box-shadow: 0 0 6px #ababab;
+    -ms-box-shadow: 0 0 6px #ababab;
+    box-shadow: 0 0 6px #ababab;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/* 弹框  是否确认删除 */
+#alertBox{
+    display: none;
+    height: 2.5rem; 
+    width: 6rem; 
+    position: fixed; 
+    left: 50%;
+    margin-left: -4rem;
+    top: 1rem;
+    text-align: center; 
+    background: rgb(255, 255, 255);
+    font-size: 0.3rem;
+    border-radius: 0.2rem; 
+    z-index: 100000;
+}
+#alertMsg{
+    margin: 0.5rem;
+}
+#alertSure{
+    position: absolute; 
+    left: 0px; 
+    width: 1.5rem; 
+    text-align: center; 
+    background: rgb(29, 130, 254); 
+    line-height: 0.7rem; 
+    color: rgb(255, 255, 255);
+    margin: 0px 0px 0px 0.7rem; 
+    border-radius: 0.2rem;
+}
+#alertErorr{
+    position: absolute; 
+    left: 3.5rem;
+    width: 1.5rem; 
+    text-align: center;
+    background: rgb(204, 204, 204); 
+    line-height: 0.7rem;
+    color: rgb(255, 255, 255); 
+    border-radius: 0.2rem;
+}
+#prompt{
+    position: absolute; 
+    left: 2.5rem;
+    height: 1rem; 
+    width: 3rem; 
+    text-align: center; 
+    background: rgb(29, 130, 254);
+    line-height: 1rem; 
+    color: rgb(255, 255, 255);
+    margin-top: 0.5rem;
+    border-radius: 0.2rem;
+    display: none;
+}
+@media screen and (max-width: 1201px) {
+    .bottompanel {
+        font-size: 0.12rem;
+    }
+    .bottompanel_air {
+        font-size: 0.12rem;
+    }
+    .bottompanel p {
+        transform: scale(1);
+    }
+    .bottompanel li {
+        transform: scale(1);
+    }
+    /* .bottompanel .station_info  */
+    .bottompanel .list_content li, .bottompanel .list li {
+        transform: scale(1);
+        font-size: 0.25rem;
+    }
+    .bottompanel_air .for_airport .air_fore .changeP {
+        margin-bottom: 0;
+        transform: scale(1);
+    }
+}
+
+#station_info{
+    padding:0.1rem 0;
+    padding: 0.1rem 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+#z_biaoti_time{
+    position: absolute;
+    left: 0.2rem;
+    top:3px;
+    font-size: 0.3rem;
+}
+#curve_bottom{
+    font-size: 0.3rem;
+    position: absolute;
+    top: 7vh;
+    right: 15vh;
+
+}
+#z_weather_img{
+    position: absolute;
+    left: 0.2rem;
+    top: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
